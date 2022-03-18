@@ -1,3 +1,4 @@
+package projetjava;
 
 import java.awt.Graphics;
 import java.awt.event.*;
