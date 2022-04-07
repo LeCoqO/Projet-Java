@@ -1,7 +1,5 @@
 package projetjava;
 
-import java.awt.Graphics;
-import java.awt.event.*;
 import javax.swing.*;
 
 public class FenetreA {
@@ -10,6 +8,7 @@ public class FenetreA {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Frame fenetre = new Frame();
+                fenetre.setSize(300,200);
                 fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 fenetre.setVisible(true);
             }

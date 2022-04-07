@@ -6,12 +6,13 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author Quentin LUSTIERE
  */
-public class Frame extends JFrame {
+public class Frame extends JFrame implements ActionListener {
 
     private JButton boutonConnexion = new JButton("Connexion");
     private JLabel etiquette_user = new JLabel("Username ");
@@ -21,10 +22,10 @@ public class Frame extends JFrame {
     private JPanel panneau = new JPanel();
     private BufferedImage image;
 
-    protected void paintComponent(Graphics g) throws IOException {
-        image = ImageIO.read(new File("C:\\Users\\chatd\\OneDrive - LECNAM\\Bureau"));
-        g.drawImage(image, 0, 0, null);
-    }
+//    protected void paintComponent(Graphics g) throws IOException {
+//        image = ImageIO.read(new File(""));
+//        g.drawImage(image, 0, 0, null);
+//    }
 
     public Frame() {
         super("Classe Fenetre");
@@ -33,8 +34,10 @@ public class Frame extends JFrame {
         panneau.add(this.champTexte_user);
         panneau.add(this.etiquette_pswd);
         panneau.add(this.champTexte_pswd);
-        add(this.boutonConnexion);
-
+        panneau.add(this.boutonConnexion);
+        
+        this.boutonConnexion.addActionListener(this);
+        this.getContentPane().add(this.panneau);
         boutonConnexion.setBounds(100, 100, 200, 300);
 
         champTexte_user.addKeyListener(new EcouteurChampTexte());
@@ -47,11 +50,9 @@ public class Frame extends JFrame {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == boutonConnexion) {
-            System.out.println(this.champTexte_user.getText() + " | " + this.champTexte_pswd.getText());
-
-        }
+        JOptionPane.showMessageDialog(panneau, "Identifiant / Mot incorrect !");
     }
+      
 
     class EcouteurChampTexte implements KeyListener {
 
