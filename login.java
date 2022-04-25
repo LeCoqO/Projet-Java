@@ -1,18 +1,10 @@
 package projetjava;
 
-import java.awt.Graphics;
 import java.awt.event.*;
-import java.awt.image.*;
-import java.io.*;
-import javax.imageio.*;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author Quentin LUSTIERE
- */
-public class Frame extends JFrame implements ActionListener {
+public class login extends JFrame implements ActionListener {
 
     private JButton boutonConnexion = new JButton("Connexion");
     private JLabel etiquette_user = new JLabel("Username ");
@@ -20,15 +12,14 @@ public class Frame extends JFrame implements ActionListener {
     private JLabel etiquette_pswd = new JLabel("Password ");
     private JTextField champTexte_pswd = new JTextField("", 20);
     private JPanel panneau = new JPanel();
-    private BufferedImage image;
 
 //    protected void paintComponent(Graphics g) throws IOException {
 //        image = ImageIO.read(new File(""));
 //        g.drawImage(image, 0, 0, null);
 //    }
 
-    public Frame() {
-        super("Classe Fenetre");
+    public login() {
+        super("Interface connexion");
         this.setBounds(100, 100, 960, 640);
         panneau.add(this.etiquette_user);
         panneau.add(this.champTexte_user);
@@ -50,7 +41,8 @@ public class Frame extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(panneau, "Identifiant / Mot incorrect !");
+        // Si mdp correct passer à une autre interface sinon message erreur 
+        JOptionPane.showMessageDialog(panneau, "Identifiant / Mot de passe incorrect !");
     }
       
 
