@@ -9,19 +9,15 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class stats extends JFrame implements ActionListener{
+public class gestionUser extends JFrame implements ActionListener {
 
     private JButton btnRetour = new JButton();
     private JButton btnDeco = new JButton();
     private JButton btnQuitter = new JButton();
-    private JPanel panneauMenu = new JPanel();
-    private JRadioButton btnRadCamp = new JRadioButton("Recherche par campagne");
-    private JRadioButton btnRadDest = new JRadioButton("Recherche par destinataire");
-    private JComboBox<String> choixListeCamp = new JComboBox<>();
-    private JComboBox<String> choixListeDest = new JComboBox<>();
-    
-    public stats() throws IOException {
-        super("Statistiques"); 
+    private JPanel panneauGestionUser = new JPanel();
+
+    public gestionUser() throws IOException {
+        super("Gestion des utilisateurs"); 
 
         BufferedImage bufferedImage = ImageIO.read(new File("C:\\Users\\coren\\Documents\\NetBeansProjects\\Projet-Java\\src\\retour.png"));
         Image image = bufferedImage.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
@@ -38,23 +34,9 @@ public class stats extends JFrame implements ActionListener{
         ImageIcon icon3 = new ImageIcon(image3);
         btnQuitter.setIcon(icon3);
 
-        String tabCamp[] = {"Liste des campagnes"}; 
-        String tabDest[] = {"Liste des destinataires"};
-
-        for (String string : tabDest) {
-            choixListeDest.addItem(string);
-        }
-        for (String string2 : tabCamp) {
-            choixListeCamp.addItem(string2);
-        }   
-
-        panneauMenu.add(this.btnRetour);
-        panneauMenu.add(this.btnDeco);
-        panneauMenu.add(this.btnQuitter);
-        panneauMenu.add(btnRadCamp);
-        panneauMenu.add(btnRadDest);
-        panneauMenu.add(choixListeCamp);
-        panneauMenu.add(choixListeDest);
+        panneauGestionUser.add(this.btnRetour);
+        panneauGestionUser.add(this.btnDeco);
+        panneauGestionUser.add(this.btnQuitter);
 
         btnRetour.setBounds(10,10,50,50);
         btnDeco.setBounds(10,150,50,50);
@@ -62,34 +44,14 @@ public class stats extends JFrame implements ActionListener{
         btnRetour.addActionListener(this);
         btnDeco.addActionListener(this);
         btnQuitter.addActionListener(this);
-        
-        btnRadCamp.setBounds(400, 20, 175, 20);
-        btnRadDest.setBounds(600, 20, 180, 20);
-        btnRadCamp.setSelected(true);
-        btnRadDest.addActionListener(this);
-        btnRadCamp.addActionListener(this);
-        
-        choixListeCamp.setBounds(150, 20, 175, 20);
-        choixListeDest.setBounds(150, 20, 175, 20);
-        choixListeDest.setVisible(false);
 
-        ButtonGroup bg = new ButtonGroup();  
-        bg.add(btnRadCamp);
-        bg.add(btnRadDest);  
+        panneauGestionUser.setLayout(null);
 
-        panneauMenu.setLayout(null);
-
-        this.getContentPane().add(this.panneauMenu);
+        this.getContentPane().add(this.panneauGestionUser);
     }
-    public void actionPerformed(ActionEvent e) {
-        if(btnRadCamp.isSelected()) {
-            choixListeCamp.setVisible(true);
-            choixListeDest.setVisible(false);
-        } else if(btnRadDest.isSelected()) {
-            choixListeCamp.setVisible(false);
-            choixListeDest.setVisible(true);
-        }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btnRetour) {
             this.dispose();
             menu monMenu = new menu();
@@ -103,6 +65,7 @@ public class stats extends JFrame implements ActionListener{
         } else if(e.getSource() == btnQuitter){
             this.dispose();
         }
-
+        
     }
+    
 }

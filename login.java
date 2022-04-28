@@ -13,10 +13,6 @@ public class login extends JFrame implements ActionListener {
     private JTextField champTexte_pswd = new JTextField("", 20);
     private JPanel panneau = new JPanel();
 
-//    protected void paintComponent(Graphics g) throws IOException {
-//        image = ImageIO.read(new File(""));
-//        g.drawImage(image, 0, 0, null);
-//    }
 
     public login() {
         super("Interface connexion");
