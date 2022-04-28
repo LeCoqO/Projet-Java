@@ -74,7 +74,7 @@ public class DAOLocataire extends DAO<Locataire> {
                     + "CatProfessionnel='" + obj.getNom() + "' , "
                     + "MailLocataire='" + obj.getNom() + "' , "
                     + "IdAppart ='" + obj.getNom() + "' , "
-                    + "where id=" + obj.getId() + ")"
+                    + "where IdLocataire =" + obj.getId() + ")"
             );
         } catch (SQLException ex) {
             return false;
@@ -93,7 +93,7 @@ public class DAOLocataire extends DAO<Locataire> {
             Statement statement = this.connection.createStatement();
             ResultSet res = statement.executeQuery("Select * from locataire where id=" + id);
             res.next();
-            return new Locataire(res.getInt("IdPersonne"),
+            return new Locataire(res.getInt("IdLocataire"),
                     res.getString("NomLocataire"),
                     res.getString("PrenomLocataire"),
                     res.getInt("AgeLocataire"),
@@ -120,7 +120,7 @@ public class DAOLocataire extends DAO<Locataire> {
             Statement statement = this.connection.createStatement();
             ResultSet res = statement.executeQuery("Select * from locataire where nom='" + name + "'");
             res.next();
-            return new Locataire(res.getInt("IdPersonne"),
+            return new Locataire(res.getInt("IdLocataire"),
                     res.getString("NomLocataire"),
                     res.getString("PrenomLocataire"),
                     res.getInt("AgeLocataire"),
@@ -143,7 +143,7 @@ public class DAOLocataire extends DAO<Locataire> {
             ResultSet res = statement.executeQuery("Select * from locataire");
             while (res.next()) {
                 allLocataire.add(new Locataire(
-                        res.getInt("IdPersonne"),
+                        res.getInt("IdLocataire"),
                         res.getString("NomLocataire"),
                         res.getString("PrenomLocataire"),
                         res.getInt("AgeLocataire"),
