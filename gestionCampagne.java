@@ -17,7 +17,7 @@ public class gestionCampagne extends JFrame implements ActionListener {
     private JPanel panneauGestionCampagne = new JPanel();
 
     public gestionCampagne() throws IOException {
-        super("Gestion des utilisateurs"); 
+        super("Gestion des campagnes"); 
 
         BufferedImage bufferedImage = ImageIO.read(new File("C:\\Users\\coren\\Documents\\NetBeansProjects\\Projet-Java\\src\\retour.png"));
         Image image = bufferedImage.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
@@ -57,11 +57,13 @@ public class gestionCampagne extends JFrame implements ActionListener {
             menu monMenu = new menu();
             monMenu.setBounds(0,0,300,150);
             monMenu.setVisible(true);
+            monMenu.setResizable(false);
         } else if(e.getSource() == btnDeco) {
             this.dispose();
             login maPageLogin = new login();
             maPageLogin.setBounds(0,0,300,200);
             maPageLogin.setVisible(true);
+            maPageLogin.setResizable(false);
         } else if(e.getSource() == btnQuitter){
             this.dispose();
         }
