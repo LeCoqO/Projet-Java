@@ -20,7 +20,8 @@ public class DAOLocataire extends DAO<Locataire> {
      * Méthode de création d'un enregistrement
      *
      * @param obj un objet Locataire à écrire dans la base
-     * @return boolean qui vaut true si la création a réussi, false dans le cas contraire
+     * @return boolean qui vaut true si la création a réussi, false dans le cas
+     *         contraire
      */
     @Override
     public boolean create(Locataire obj) {
@@ -31,10 +32,10 @@ public class DAOLocataire extends DAO<Locataire> {
                     + obj.getNom() + "' , '"
                     + obj.getPrenom() + "' , '"
                     + obj.getAge() + "' , '"
-                    + obj.getAdresse() + "' , '"
+                    + obj.getTel() + "' , '"
                     + obj.getMail() + "' , '"
-                    + obj.getIdAppart() + "')"
-            );
+                    + obj.getCategoriePro() + "' , '"
+                    + obj.getIdAppart() + "')");
         } catch (SQLException ex) {
             return false;
         }
@@ -44,7 +45,8 @@ public class DAOLocataire extends DAO<Locataire> {
      * Supprime un locataire de la base à partir d'un objet Locataire
      *
      * @param obj un objet Locataire à supprimer dans la base
-     * @return boolean qui vaut true si la suppression a réussi, false dans le cas contraire
+     * @return boolean qui vaut true si la suppression a réussi, false dans le cas
+     *         contraire
      */
     @Override
     public boolean delete(Locataire obj) {
@@ -60,7 +62,8 @@ public class DAOLocataire extends DAO<Locataire> {
      * Méthode de mise à jour d'un enregistrement
      *
      * @param obj un objet Locataire à mettre à jour dans la base
-     * @return boolean qui vaut true si la mise à jour a réussi, false dans le cas contraire
+     * @return boolean qui vaut true si la mise à jour a réussi, false dans le cas
+     *         contraire
      */
     @Override
     public boolean update(Locataire obj) {
@@ -70,12 +73,11 @@ public class DAOLocataire extends DAO<Locataire> {
                     + "NomLocataire='" + obj.getNom() + "' , "
                     + "PrenomLocataire='" + obj.getPrenom() + "' "
                     + "AgeLocataire='" + obj.getAge() + "' , "
-                    + "AdresseLocataire='" + obj.getNom() + "' , "
-                    + "CatProfessionnel='" + obj.getNom() + "' , "
-                    + "MailLocataire='" + obj.getNom() + "' , "
-                    + "IdAppart ='" + obj.getNom() + "' , "
-                    + "where IdLocataire =" + obj.getId() + ")"
-            );
+                    + "TelLocataire='" + obj.getTel() + "' , "
+                    + "MailLocataire='" + obj.getMail() + "' , "
+                    + "CatProfessionnel='" + obj.getCategoriePro() + "' , "
+                    + "IdAppart='" + obj.getIdAppart() + "' , "
+                    + "where IdLocataire =" + obj.getId() + ")");
         } catch (SQLException ex) {
             return false;
         }
@@ -97,12 +99,10 @@ public class DAOLocataire extends DAO<Locataire> {
                     res.getString("NomLocataire"),
                     res.getString("PrenomLocataire"),
                     res.getInt("AgeLocataire"),
-                    res.getString("AdresseLocataire"),
-                    res.getString("CatProfessionnel"),
+                    res.getString("TelLocataire"),
                     res.getString("MailLocataire"),
-                    res.getInt("IdAppart")
-            );
-
+                    res.getString("CatProfessionnel"),
+                    res.getInt("IdAppart"));
         } catch (SQLException ex) {
             return null;
         }
@@ -124,11 +124,10 @@ public class DAOLocataire extends DAO<Locataire> {
                     res.getString("NomLocataire"),
                     res.getString("PrenomLocataire"),
                     res.getInt("AgeLocataire"),
-                    res.getString("AdresseLocataire"),
-                    res.getString("CatProfessionnel"),
+                    res.getString("TelLocataire"),
                     res.getString("MailLocataire"),
-                    res.getInt("IdAppart")
-            );
+                    res.getString("CatProfessionnel"),
+                    res.getInt("IdAppart"));
         } catch (SQLException ex) {
             return null;
         }
@@ -147,11 +146,10 @@ public class DAOLocataire extends DAO<Locataire> {
                         res.getString("NomLocataire"),
                         res.getString("PrenomLocataire"),
                         res.getInt("AgeLocataire"),
-                        res.getString("AdresseLocataire"),
-                        res.getString("CatProfessionnel"),
+                        res.getString("TelLocataire"),
                         res.getString("MailLocataire"),
-                        res.getInt("IdAppart"))
-                );
+                        res.getString("CatProfessionnel"),
+                        res.getInt("IdAppart")));
             }
         } catch (SQLException ex) {
             return allLocataire;

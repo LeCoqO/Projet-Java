@@ -1,6 +1,6 @@
 package Entity;
 
-public class Locataire {
+public class Partenaire {
 
     private int id;
     private String nom;
@@ -8,19 +8,16 @@ public class Locataire {
     private int age;
     private String tel;
     private String mail;
-    private String categoriePro;
-    private int idAppart; // Clé étrangère
+    private String adresse;
 
-    public Locataire(int id, String nom, String prenom, int age, String tel, String mail, String categoriePro,
-            int idAppart) {
+    public Partenaire(int id, String nom, String prenom, int age, String tel, String mail, String adresse) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
         this.tel = tel;
         this.mail = mail;
-        this.categoriePro = categoriePro;
-        this.idAppart = idAppart;
+        this.adresse = adresse;
     }
 
     public int getId() {
@@ -71,20 +68,12 @@ public class Locataire {
         this.mail = mail;
     }
 
-    public String getCategoriePro() {
-        return categoriePro;
+    public String getAdresse() {
+        return adresse;
     }
 
-    public void setCategoriePro(String categoriePro) {
-        this.categoriePro = categoriePro;
-    }
-
-    public int getIdAppart() {
-        return idAppart;
-    }
-
-    public void setIdAppart(int idAppart) {
-        this.idAppart = idAppart;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
 }
