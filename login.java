@@ -16,7 +16,6 @@ public class login extends JFrame implements ActionListener {
 
     public login() {
         super("Interface connexion");
-        this.setBounds(100, 100, 960, 640);
         panneau.add(this.etiquette_user);
         panneau.add(this.champTexte_user);
         panneau.add(this.etiquette_pswd);
@@ -32,7 +31,7 @@ public class login extends JFrame implements ActionListener {
         this.boutonConnexion.setEnabled(false);
 
         this.getRootPane().setDefaultButton(boutonConnexion);
-
+        
         this.getContentPane().add(this.panneau);
     }
 

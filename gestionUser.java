@@ -38,15 +38,15 @@ public class gestionUser extends JFrame implements ActionListener {
         panneauGestionUser.add(this.btnDeco);
         panneauGestionUser.add(this.btnQuitter);
 
-        btnRetour.setBounds(10,10,50,50);
-        btnDeco.setBounds(10,150,50,50);
-        btnQuitter.setBounds(10,290,50,50);
+        btnRetour.setBounds(10,60,50,50);
+        btnDeco.setBounds(10,360,50,50);
+        btnQuitter.setBounds(10,720,50,50);
         btnRetour.addActionListener(this);
         btnDeco.addActionListener(this);
         btnQuitter.addActionListener(this);
 
         panneauGestionUser.setLayout(null);
-
+        
         this.getContentPane().add(this.panneauGestionUser);
     }
 
@@ -55,13 +55,15 @@ public class gestionUser extends JFrame implements ActionListener {
         if(e.getSource() == btnRetour) {
             this.dispose();
             menu monMenu = new menu();
-            monMenu.setBounds(0,0,300,150);
+            monMenu.setBounds(650,350,300,150);
             monMenu.setVisible(true);
+            monMenu.setResizable(false);
         } else if(e.getSource() == btnDeco) {
             this.dispose();
             login maPageLogin = new login();
-            maPageLogin.setBounds(0,0,300,200);
+            maPageLogin.setBounds(650,350,300,150);
             maPageLogin.setVisible(true);
+            maPageLogin.setResizable(false);
         } else if(e.getSource() == btnQuitter){
             this.dispose();
         }

@@ -30,8 +30,10 @@ public class menu extends JFrame implements ActionListener {
         if(e.getSource() == boutonStats) { 
             try {
                 stats mesStats = new stats();
-                mesStats.setBounds(0,0,800,400); 
+                mesStats.setBounds(0,0,1920,1080); 
                 mesStats.setVisible(true);
+                mesStats.setResizable(false);
+                mesStats.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 this.dispose();
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -40,8 +42,10 @@ public class menu extends JFrame implements ActionListener {
         } else if(e.getSource() == boutonGU) {
             try {
                 gestionUser mesUsers = new gestionUser();
-                mesUsers.setBounds(0,0,800,400); 
+                mesUsers.setBounds(0,0,1920,1080); 
                 mesUsers.setVisible(true);
+                mesUsers.setResizable(false);
+                mesUsers.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 this.dispose();
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -49,8 +53,10 @@ public class menu extends JFrame implements ActionListener {
         } else if(e.getSource() == boutonGC) {
             try {
                 gestionCampagne mesCampagnes = new gestionCampagne();
-                mesCampagnes.setBounds(0,0,800,400); 
+                mesCampagnes.setBounds(0,0,1920,1080); 
                 mesCampagnes.setVisible(true);
+                mesCampagnes.setResizable(false);
+                mesCampagnes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 this.dispose();
             } catch (IOException e1) {
                 e1.printStackTrace();
