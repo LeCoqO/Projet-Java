@@ -2,10 +2,16 @@ package projetjava;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Properties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,7 +25,13 @@ public class gestionCampagne extends JFrame implements ActionListener {
     private JLabel label2 = new JLabel("Création");
     private JLabel label3 = new JLabel("Campagne a selectionner");
     private JTextField text1 = new JTextField();
+    private JLabel label4 = new JLabel("Date déploiement initial :");
     private JList<String> liste1 = new JList<>();
+    private JComboBox<String> choixTypeCamp = new JComboBox<>();
+    private UtilDateModel model = new UtilDateModel();
+    private Properties p = new Properties();
+    private JDatePanelImpl datePanel = new JDatePanelImpl(model,p);
+    private JDatePickerImpl datePicker = new JDatePickerImpl(datePanel,new DateLabelFormatter());
     private JPanel panneauGestionCampagne = new JPanel();
 
     /*
@@ -52,6 +64,8 @@ public class gestionCampagne extends JFrame implements ActionListener {
         label2.setFont(new Font("Sans-Serif",Font.BOLD,40));
         label3.setBounds(200,60,250,50);
         label3.setFont(new Font("Sans-Serif",Font.CENTER_BASELINE,15));
+        label4.setBounds(200,300,300,20);
+        label4.setFont(new Font("Sans-Serif",Font.CENTER_BASELINE,15));
 
         DefaultListModel<String> model = new DefaultListModel<>();
         model.addElement("Java");
@@ -66,13 +80,28 @@ public class gestionCampagne extends JFrame implements ActionListener {
         liste1 = new JList<>(model);
         liste1.setBounds(200,120,250,150);
 
-        text1.setBounds(600,120,150,20);
+        text1.setBounds(500,120,150,20);
 
+        choixTypeCamp.setBounds(500,500,250,25);
+        String tabCamp[] = {"Type de campagne"};
+
+        for (String string : tabCamp) {
+            choixTypeCamp.addItem(string);
+        }
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+
+        datePicker.setBounds(200,500,150,50);
+
+        panneauGestionCampagne.add(datePicker);
         panneauGestionCampagne.add(this.label1);
         panneauGestionCampagne.add(this.label2);
         panneauGestionCampagne.add(this.label3);
         panneauGestionCampagne.add(this.liste1);
         panneauGestionCampagne.add(this.text1);
+        panneauGestionCampagne.add(this.label4);
+        panneauGestionCampagne.add(choixTypeCamp);
         panneauGestionCampagne.add(this.btnRetour);
         panneauGestionCampagne.add(this.btnDeco);
         panneauGestionCampagne.add(this.btnQuitter);
