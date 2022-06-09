@@ -1,4 +1,5 @@
-package projetjava;
+package Interface;
+
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
