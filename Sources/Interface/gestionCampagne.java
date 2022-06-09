@@ -3,12 +3,12 @@ package Interface;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.*;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import javax.swing.event.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -57,20 +57,17 @@ public class gestionCampagne extends JFrame implements ActionListener {
     public gestionCampagne() throws IOException {
         super("Gestion des campagnes");
 
-        BufferedImage bufferedImage = ImageIO
-                .read(new File("C:\\Users\\coren\\Documents\\NetBeansProjects\\Projet-Java\\src\\retour.png"));
+        BufferedImage bufferedImage = ImageIO.read(new File("retour.png"));
         Image image = bufferedImage.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         ImageIcon icon = new ImageIcon(image);
         btnRetour.setIcon(icon);
 
-        BufferedImage bufferedImage2 = ImageIO
-                .read(new File("C:\\Users\\coren\\Documents\\NetBeansProjects\\Projet-Java\\src\\deconnexion.png"));
+        BufferedImage bufferedImage2 = ImageIO.read(new File("deconnexion.png"));
         Image image2 = bufferedImage2.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         ImageIcon icon2 = new ImageIcon(image2);
         btnDeco.setIcon(icon2);
 
-        BufferedImage bufferedImage3 = ImageIO
-                .read(new File("C:\\Users\\coren\\Documents\\NetBeansProjects\\Projet-Java\\src\\shutdown.png"));
+        BufferedImage bufferedImage3 = ImageIO.read(new File("shutdown.png"));
         Image image3 = bufferedImage3.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         ImageIcon icon3 = new ImageIcon(image3);
         btnQuitter.setIcon(icon3);
