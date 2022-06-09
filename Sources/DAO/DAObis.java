@@ -1,7 +1,6 @@
 package DAO;
 
 import java.sql.Connection;
-import java.util.List;
 
 /**
  * Classe abstraite générique Permet de déclarer des objets d'accès à une base
@@ -10,7 +9,7 @@ import java.util.List;
  * @author Hervé Martinez
  * @param <T> Représente la classe des objets Java à manipuler
  */
-public abstract class DAObis<T> extends DAO{
+public abstract class DAObis<T> extends DAO<T>{
 
     /**
      * champ connection

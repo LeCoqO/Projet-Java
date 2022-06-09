@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOAppartement extends DAO<Appartement> {
+public class DAOAppartement extends DAObis<Appartement> {
     /**
      * Constructeur d'un objet d'accès à la base
      *

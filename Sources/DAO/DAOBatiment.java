@@ -89,25 +89,6 @@ public class DAOBatiment extends DAO<Batiment> {
         }
     }
 
-    /**
-     * Méthode de recherche des informations par le nom du bâtiment
-     *
-     * @param name correspond au nom du bâtiment
-     * @return un objet Batiment
-     */
-    @Override
-    public Batiment selectByName(String name) {
-        try {
-            Statement statement = this.connection.createStatement();
-            ResultSet res = statement.executeQuery("Select * from batiment where nom='" + name + "'");
-            res.next();
-            return new Batiment(res.getInt("IdBatiment"),
-                    res.getString("AdresseBatiment"));
-        } catch (SQLException ex) {
-            return null;
-        }
-    }
-
     @Override
     public List<Batiment> getAll() {
 

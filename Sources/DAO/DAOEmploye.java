@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOEmploye extends DAO<Employe> {
+public class DAOEmploye extends DAObis<Employe> {
 
     /**
      * Constructeur d'un objet d'accès à la base
