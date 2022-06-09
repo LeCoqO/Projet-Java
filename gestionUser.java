@@ -15,6 +15,7 @@ public class gestionUser extends JFrame implements ActionListener {
     private JButton btnDeco = new JButton();
     private JButton btnQuitter = new JButton();
     private JPanel panneauGestionUser = new JPanel();
+    private JList<String> liste1 = new JList<>();
 
     public gestionUser() throws IOException {
         super("Gestion des utilisateurs"); 
@@ -34,10 +35,6 @@ public class gestionUser extends JFrame implements ActionListener {
         ImageIcon icon3 = new ImageIcon(image3);
         btnQuitter.setIcon(icon3);
 
-        panneauGestionUser.add(this.btnRetour);
-        panneauGestionUser.add(this.btnDeco);
-        panneauGestionUser.add(this.btnQuitter);
-
         btnRetour.setBounds(10,60,50,50);
         btnDeco.setBounds(10,360,50,50);
         btnQuitter.setBounds(10,720,50,50);
@@ -45,9 +42,30 @@ public class gestionUser extends JFrame implements ActionListener {
         btnDeco.addActionListener(this);
         btnQuitter.addActionListener(this);
 
+        DefaultListModel<String> model = new DefaultListModel<>();
+        model.addElement("Java");
+        model.addElement("PHP");
+        model.addElement("Python");
+        model.addElement("C++");
+        model.addElement("Perl");
+        model.addElement("Pascal");
+        model.addElement("Ruby");
+        
+        DefaultListModel<String> modelU = new DefaultListModel<>();
+        modelU.addElement("Catégorie utilisateurs");
+
+        //créer la liste des langages
+        liste1 = new JList<>(model);
+        liste1.setBounds(200,120,250,150);
+
         panneauGestionUser.setLayout(null);
         
         this.getContentPane().add(this.panneauGestionUser);
+
+        panneauGestionUser.add(this.btnRetour);
+        panneauGestionUser.add(this.btnDeco);
+        panneauGestionUser.add(this.btnQuitter);
+        panneauGestionUser.add(this.liste1);
     }
 
     @Override
