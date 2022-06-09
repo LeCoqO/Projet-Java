@@ -1,3 +1,4 @@
+package Interface;
 class treatmentPersonne{
     
     static String[] getUserByCategorie(String categorie){
