@@ -1,4 +1,5 @@
-package projetjava;
+package Interface;
+
 
 import java.awt.event.*;
 import javax.swing.*;
