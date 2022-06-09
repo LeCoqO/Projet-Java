@@ -62,14 +62,6 @@ public abstract class DAO<T> {
     public abstract T selectById(int id);
 
     /**
-     * Méthode de recherche des informations par un nom
-     *
-     * @param name
-     * @return T
-     */
-    public abstract T selectByName(String name);
-
-    /**
      * Retourne tous les objets de la table sous forme de liste
      *
      * @return
