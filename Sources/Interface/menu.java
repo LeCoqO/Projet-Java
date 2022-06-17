@@ -43,7 +43,7 @@ public class menu extends JFrame implements ActionListener {
         } else if(e.getSource() == boutonGU) {
             try {
                 gestionUser mesUsers = new gestionUser();
-                mesUsers.setBounds(0,0,1920,1080); 
+                mesUsers.setBounds(0,0,1920,1000); 
                 mesUsers.setVisible(true);
                 mesUsers.setResizable(false);
                 mesUsers.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,6 +1,5 @@
 package Interface;
 
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +14,20 @@ public class gestionUser extends JFrame implements ActionListener {
     private JButton btnRetour = new JButton();
     private JButton btnDeco = new JButton();
     private JButton btnQuitter = new JButton();
+    private JButton btnModifMdp = new JButton("Modifer le mdp");
+    private JButton btnValider = new JButton("Valider");
+    private JButton btnSupprCompte = new JButton("Supprimer le compte");
+    private JButton btnCreer = new JButton("Créer");
     private JPanel panneauGestionUser = new JPanel();
+    private JList<String> liste1 = new JList<>();
+    private JComboBox<String> choixTypeCamp = new JComboBox<>();
+    private JComboBox<String> choixTypeCat = new JComboBox<>();
+    private JCheckBox check1 = new JCheckBox("Droit planification / lancement campagne"); 
+    private JLabel label1 = new JLabel("Gestion des utilisateurs");
+    private JLabel label2 = new JLabel("Création d'un utilisateur");
+    private JTextField field1 = new JTextField("Nom de l'utilisateur");
+    private JTextField field2 = new JTextField("Mdp de l'utilisateur");
+    private JTextField field3 = new JTextField("Nouveau mot de passe");
 
     public gestionUser() throws IOException {
         super("Gestion des utilisateurs"); 
@@ -34,21 +46,81 @@ public class gestionUser extends JFrame implements ActionListener {
         Image image3 = bufferedImage3.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         ImageIcon icon3 = new ImageIcon(image3);
         btnQuitter.setIcon(icon3);
-*/
-        panneauGestionUser.add(this.btnRetour);
-        panneauGestionUser.add(this.btnDeco);
-        panneauGestionUser.add(this.btnQuitter);
-
+*/  
         btnRetour.setBounds(10,60,50,50);
         btnDeco.setBounds(10,360,50,50);
         btnQuitter.setBounds(10,720,50,50);
+        btnModifMdp.setBounds(200,650,200,50);
+        btnValider.setBounds(200,400,250,50);
+        btnSupprCompte.setBounds(200,750,200,50);
+        btnCreer.setBounds(900,450,150,50);
         btnRetour.addActionListener(this);
         btnDeco.addActionListener(this);
         btnQuitter.addActionListener(this);
+        btnValider.addActionListener(this);
+        btnCreer.addActionListener(this);
+        btnModifMdp.addActionListener(this);
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        model.addElement("Java");
+        model.addElement("PHP");
+        model.addElement("Python");
+        model.addElement("C++");
+        model.addElement("Perl");
+        model.addElement("Pascal");
+        model.addElement("Ruby");
+        
+        DefaultListModel<String> modelU = new DefaultListModel<>();
+        modelU.addElement("Catégorie utilisateurs");
+
+        //créer la liste des langages
+        liste1 = new JList<>(model);
+        liste1.setBounds(200,120,250,150);
+
+        choixTypeCamp.setBounds(200, 300, 250, 25);
+        String tabCamp[] = { "Type de campagne" };
+
+        for (String string : tabCamp) {
+            choixTypeCamp.addItem(string);
+        }
+        choixTypeCat.setBounds(900, 320, 250, 25);
+        String tabCat[] = { "Catégorie" };
+
+        for (String string2 : tabCat) {
+            choixTypeCat.addItem(string2);
+        }
+
+        check1.setBounds(200, 350, 350, 25);
+
+        label1.setBounds(200,50,550,35);
+        label1.setFont(new Font("Sans-Serif", Font.BOLD, 40));
+        label2.setBounds(900,50,550,35);
+        label2.setFont(new Font("Sans-Serif", Font.BOLD, 40));
+
+        field1.setBounds(900,120,400,25);
+        field2.setBounds(900,220,400,25);
+        field3.setBounds(200,550,400,25);
 
         panneauGestionUser.setLayout(null);
         
         this.getContentPane().add(this.panneauGestionUser);
+
+        panneauGestionUser.add(this.btnRetour);
+        panneauGestionUser.add(this.btnDeco);
+        panneauGestionUser.add(this.btnQuitter);
+        panneauGestionUser.add(this.liste1);
+        panneauGestionUser.add(this.choixTypeCamp);
+        panneauGestionUser.add(this.check1);
+        panneauGestionUser.add(this.label1);
+        panneauGestionUser.add(this.label2);
+        panneauGestionUser.add(this.field1);
+        panneauGestionUser.add(this.field2);
+        panneauGestionUser.add(this.field3);
+        panneauGestionUser.add(this.choixTypeCat);
+        panneauGestionUser.add(this.btnModifMdp);
+        panneauGestionUser.add(this.btnSupprCompte);
+        panneauGestionUser.add(this.btnValider);
+        panneauGestionUser.add(btnCreer);
     }
 
     @Override
@@ -67,6 +139,12 @@ public class gestionUser extends JFrame implements ActionListener {
             maPageLogin.setResizable(false);
         } else if(e.getSource() == btnQuitter){
             this.dispose();
+        } else if(e.getSource() == btnValider) {
+            JOptionPane.showMessageDialog(panneauGestionUser, "Informations modifiées");
+        } else if(e.getSource() == btnCreer) {
+            JOptionPane.showMessageDialog(panneauGestionUser, "Utilisateur créé");
+        } else if(e.getSource() == btnModifMdp) {
+            JOptionPane.showMessageDialog(panneauGestionUser, "Mot de passe modifié");
         }
         
     }
