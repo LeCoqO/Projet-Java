@@ -36,10 +36,10 @@ public class MainClass {
         }
 
         DAOEmploye daoEmploye = new DAOEmploye(connection);
-        Employe employetest = new Employe(12, "Mauchand", "Coco", "coco123", "12345678", "Administrateur");
+        Employe employetest = new Employe(12, "Mauchand", "Coco", "coco123", "12345678", "Utilisateur");
         // Employe employeCoco = daoEmploye.create(emplyetest);
-        daoEmploye.create(employetest);
-
+        boolean ok = daoEmploye.createWoID(employetest);
+        System.out.println(ok);
         System.out.println(employetest);
     }
 

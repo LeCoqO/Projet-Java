@@ -39,6 +39,20 @@ public class DAOEmploye extends DAO<Employe> {
         }
     }
 
+    public boolean createWoID(Employe obj) {
+        try {
+            Statement statement = this.connection.createStatement();
+            return !statement.execute("insert into employe values("
+                    + "NULL" + " , '"
+                    + obj.getNom() + "' , '"
+                    + obj.getPrenom() + "' , '"
+                    + obj.getLogin() + "' , '"
+                    + obj.getPassword() + "' , '"
+                    + obj.getFonction() + "')");
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
     /**
      * Supprime un employé de la base à partir d'un objet Employe
      *
