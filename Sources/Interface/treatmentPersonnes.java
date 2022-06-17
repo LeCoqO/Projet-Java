@@ -1,4 +1,4 @@
-package Interface;
+package projetjava.Sources.Interface;
 class treatmentPersonne{
     
     static String[] getUserByCategorie(String categorie){

@@ -1,6 +1,6 @@
-package DAO;
+package projetjava.Sources.DAO;
 
-import Entity.Locataire;
+import projetjava.Sources.Entity.Locataire;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

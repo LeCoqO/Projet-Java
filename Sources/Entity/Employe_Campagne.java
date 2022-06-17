@@ -1,4 +1,4 @@
-package Entity;
+package projetjava.Sources.Entity;
 
 public class Employe_Campagne {
 

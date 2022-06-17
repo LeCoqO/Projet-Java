@@ -1,4 +1,4 @@
-package Interface;
+package projetjava.Sources.Interface;
 
 
 import javax.imageio.ImageIO;
@@ -121,16 +121,18 @@ public class gestionCampagne extends JFrame implements ActionListener {
         choixTypeCamp2.setBounds(1200, 120, 200, 25);
         String tabCamp[] = { "Type de campagne" };
 
+        for (String string : tabCamp) {
+            choixTypeCamp.addItem(string);
+            choixTypeCamp2.addItem(string);
+        }
+
         liste1.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent evt) {
                 jList1ValueChanged(evt);
             }
         });
 
-        for (String string : tabCamp) {
-            choixTypeCamp.addItem(string);
-            choixTypeCamp2.addItem(string);
-        }
+        
 
         p.put("text.today", "Today");
         p.put("text.month", "Month");

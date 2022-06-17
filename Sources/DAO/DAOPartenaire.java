@@ -1,6 +1,6 @@
-package DAO;
+package projetjava.Sources.DAO;
 
-import Entity.Partenaire;
+import projetjava.Sources.Entity.Partenaire;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

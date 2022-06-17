@@ -1,6 +1,6 @@
-package DAO;
+package projetjava.Sources.DAO;
 
-import Entity.Batiment;
+import projetjava.Sources.Entity.Batiment;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

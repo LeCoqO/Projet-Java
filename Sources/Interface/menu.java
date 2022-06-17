@@ -1,4 +1,4 @@
-package Interface;
+package projetjava.Sources.Interface;
 
 
 import javax.swing.*;

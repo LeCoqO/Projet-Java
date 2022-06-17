@@ -1,4 +1,4 @@
-package Main;
+package projetjava.Sources.Main;
 
 import Connection.ConnectionBDD;
 import Connection.Connector;
