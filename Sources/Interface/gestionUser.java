@@ -1,11 +1,14 @@
 package Interface;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import Connection.*;
+import DAO.*;
+import Entity.*;
+import java.util.List;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -62,14 +65,20 @@ public class gestionUser extends JFrame implements ActionListener {
         btnModifMdp.addActionListener(this);
 
         DefaultListModel<String> model = new DefaultListModel<>();
+        Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL());
+        if (connection != null) {
+            System.out.println("Connexion réussi !");
+        }
+        System.out.println(connection);
+        DAOEmploye employe = new DAOEmploye(connection);
+        List<Employe> listEmploye = employe.getAll();
+        for (Employe t : listEmploye) {
+            model.addElement(t.getNom() + " " + t.getPrenom());
+        }
         model.addElement("Java");
-        model.addElement("PHP");
-        model.addElement("Python");
-        model.addElement("C++");
-        model.addElement("Perl");
-        model.addElement("Pascal");
-        model.addElement("Ruby");
-        
+
+
+
         DefaultListModel<String> modelU = new DefaultListModel<>();
         modelU.addElement("Catégorie utilisateurs");
 

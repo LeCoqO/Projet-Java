@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOEmploye extends DAObis<Employe> {
+public class DAOEmploye extends DAO<Employe> {
 
     /**
      * Constructeur d'un objet d'accès à la base
@@ -108,7 +108,7 @@ public class DAOEmploye extends DAObis<Employe> {
      * @param name correspond au nom de l'employé
      * @return un objet Employe
      */
-    @Override
+
     public Employe selectByName(String name) {
         try {
             Statement statement = this.connection.createStatement();
