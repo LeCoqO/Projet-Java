@@ -33,8 +33,14 @@ public class MainClass {
         List<Batiment> le_tieks = bat7.getAll();
         for (Batiment batiment : le_tieks) {
             System.out.println(batiment);
-
         }
+
+        DAOEmploye daoEmploye = new DAOEmploye(connection);
+        Employe employetest = new Employe(1, "Mauchand", "Coco", "coco123", "123", "Administrateur");
+        // Employe employeCoco = daoEmploye.create(emplyetest);
+        daoEmploye.create(employetest);
+
+        System.out.println(employetest);
     }
 
 }
