@@ -145,5 +145,4 @@ public class DAOEmploye extends DAObis<Employe> {
         }
         return allEmploye;
     }
-
 }

@@ -57,20 +57,20 @@ public class gestionCampagne extends JFrame implements ActionListener {
     public gestionCampagne() throws IOException {
         super("Gestion des campagnes");
 
-        BufferedImage bufferedImage = ImageIO.read(new File("retour.png"));
-        Image image = bufferedImage.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        ImageIcon icon = new ImageIcon(image);
-        btnRetour.setIcon(icon);
+        // BufferedImage bufferedImage = ImageIO.read(new File("retour.png"));
+        // Image image = bufferedImage.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+        // ImageIcon icon = new ImageIcon(image);
+        // btnRetour.setIcon(icon);
 
-        BufferedImage bufferedImage2 = ImageIO.read(new File("deconnexion.png"));
-        Image image2 = bufferedImage2.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        ImageIcon icon2 = new ImageIcon(image2);
-        btnDeco.setIcon(icon2);
+        // BufferedImage bufferedImage2 = ImageIO.read(new File("deconnexion.png"));
+        // Image image2 = bufferedImage2.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+        // ImageIcon icon2 = new ImageIcon(image2);
+        // btnDeco.setIcon(icon2);
 
-        BufferedImage bufferedImage3 = ImageIO.read(new File("shutdown.png"));
-        Image image3 = bufferedImage3.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-        ImageIcon icon3 = new ImageIcon(image3);
-        btnQuitter.setIcon(icon3);
+        // BufferedImage bufferedImage3 = ImageIO.read(new File("shutdown.png"));
+        // Image image3 = bufferedImage3.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+        // ImageIcon icon3 = new ImageIcon(image3);
+        // btnQuitter.setIcon(icon3);
 
         btnRetour.setBounds(10, 60, 50, 50);
         btnDeco.setBounds(10, 360, 50, 50);

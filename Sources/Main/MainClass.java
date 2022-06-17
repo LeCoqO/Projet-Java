@@ -1,10 +1,8 @@
 package Main;
 
-import Connection.ConnectionBDD;
-import Connection.Connector;
-import Connection.ConnectorMySQL;
+import Connection.*;
 import DAO.*;
-import Entity.Batiment;
+import Entity.*;
 
 import java.sql.*;
 
@@ -23,11 +21,11 @@ public class MainClass {
 
     public static void main(String[] args) {
 
-        // Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL());
+        // Connection connection = ConnectionBDD.getInstance(new ConnectorMariaDB());
         // System.out.println("Connexion réussi !");
-        // checkConnection(new ConnectorMySQL());
+        // checkConnection(new ConnectorMariaDB());
 
-        Connector connectorTest = new ConnectorMySQL();
+        Connector connectorTest = new ConnectorMariaDB();
         Connection connectTest = ConnectionBDD.getInstance(connectorTest);
         DAOBatiment daoBatiment = new DAOBatiment(connectTest);
         Batiment batimentTest = daoBatiment.selectById(1);
