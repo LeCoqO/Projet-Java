@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOAppartement extends DAObis<Appartement> {
+public class DAOAppartement extends DAO<Appartement> {
     /**
      * Constructeur d'un objet d'accès à la base
      *
@@ -85,27 +85,6 @@ public class DAOAppartement extends DAObis<Appartement> {
         try {
             Statement statement = this.connection.createStatement();
             ResultSet res = statement.executeQuery("Select * from appartement where id=" + id);
-            res.next();
-            return new Appartement(res.getInt("IdAppart"),
-                    res.getString("CategorieAppart"),
-                    res.getInt("NumAppart"),
-                    res.getInt("IdBatiment"));
-        } catch (SQLException ex) {
-            return null;
-        }
-    }
-
-    /**
-     * Méthode de recherche des informations par le nom de l'appartement
-     *
-     * @param name correspond au nom de l'appartement
-     * @return un objet Appartement
-     */
-    @Override
-    public Appartement selectByName(String name) {
-        try {
-            Statement statement = this.connection.createStatement();
-            ResultSet res = statement.executeQuery("Select * from appartement where nom='" + name + "'");
             res.next();
             return new Appartement(res.getInt("IdAppart"),
                     res.getString("CategorieAppart"),

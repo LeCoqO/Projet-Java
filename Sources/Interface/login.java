@@ -4,6 +4,7 @@ package projetjava.Sources.Interface;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class login extends JFrame implements ActionListener {
 
@@ -37,8 +38,25 @@ public class login extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        // Si mdp correct passer à une autre interface sinon message erreur 
-        JOptionPane.showMessageDialog(panneau, "Identifiant / Mot de passe incorrect !");
+
+
+        if(e.getSource() == boutonConnexion) {
+            if() {
+                try {
+                    menu monMenu = new menu();
+                    monMenu.setBounds(0,0,1920,1080); 
+                    monMenu.setVisible(true);
+                    monMenu.setResizable(false);
+                    monMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    this.dispose();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            } else {
+                // Si mdp correct passer à une autre interface sinon message erreur 
+                JOptionPane.showMessageDialog(panneau, "Identifiant / Mot de passe incorrect !");
+            }
+        }
     }
       
 

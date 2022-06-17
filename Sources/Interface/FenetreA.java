@@ -31,10 +31,10 @@ public class FenetreA {
         }
         System.out.println(connection);
         checkConnection(new ConnectorMySQL());
-        DAOEmploye empl = new DAOBatiment(connection);
-        List<Batiment> le_tieks = bat7.getAll();
-        for (Batiment batiment : le_tieks) {
-            System.out.println(batiment);
+        DAOEmploye emp = new DAOEmploye(connection);
+        List<Employe> le_emp = emp.getAll();
+        for (Employe employe : le_emp) {
+            System.out.println(employe);
 
         }
 
