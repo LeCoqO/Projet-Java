@@ -6,7 +6,6 @@ import Connection.ConnectionBDD;
 import Connection.Connector;
 import Connection.ConnectorMySQL;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainClass {
@@ -30,11 +29,8 @@ public class MainClass {
         }
         System.out.println(connection);
         checkConnection(new ConnectorMySQL());
-        System.out.println("ok");
         DAOBatiment bat7 = new DAOBatiment(connection);
-        System.out.println("ok2");
         List<Batiment> le_tieks = bat7.getAll();
-        System.out.println("ok3");
         for (Batiment batiment : le_tieks) {
             System.out.println(batiment);
 

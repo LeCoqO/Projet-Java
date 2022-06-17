@@ -19,7 +19,7 @@ public class gestionUser extends JFrame implements ActionListener {
 
     public gestionUser() throws IOException {
         super("Gestion des utilisateurs"); 
-
+/* 
         BufferedImage bufferedImage = ImageIO.read(new File("C:\\Users\\coren\\Documents\\NetBeansProjects\\Projet-Java\\src\\retour.png"));
         Image image = bufferedImage.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         ImageIcon icon = new ImageIcon(image);
@@ -34,7 +34,7 @@ public class gestionUser extends JFrame implements ActionListener {
         Image image3 = bufferedImage3.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         ImageIcon icon3 = new ImageIcon(image3);
         btnQuitter.setIcon(icon3);
-
+*/
         panneauGestionUser.add(this.btnRetour);
         panneauGestionUser.add(this.btnDeco);
         panneauGestionUser.add(this.btnQuitter);
