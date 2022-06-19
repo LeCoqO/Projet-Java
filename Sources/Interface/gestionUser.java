@@ -23,11 +23,13 @@ public class gestionUser extends JFrame implements ActionListener {
     private JComboBox<String> choixTypeCamp = new JComboBox<>();
     private JComboBox<String> choixTypeCat = new JComboBox<>();
     private JCheckBox check1 = new JCheckBox("Droit planification / lancement campagne"); 
-    private JLabel label1 = new JLabel("Gestion des utilisateurs");
-    private JLabel label2 = new JLabel("Création d'un utilisateur");
-    private JTextField field1 = new JTextField("Nom de l'utilisateur");
-    private JTextField field2 = new JTextField("Mdp de l'utilisateur");
-    private JTextField field3 = new JTextField("Nouveau mot de passe");
+    private JLabel gestionUser = new JLabel("Gestion des utilisateurs");
+    private JLabel creaUSer = new JLabel("Création d'un utilisateur");
+    private JTextField nomUser = new JTextField("Nom de l'utilisateur");
+    private JTextField prenomUser = new JTextField("Prenom de l'utilisateur");
+    private JTextField loginUser = new JTextField("Login de l'utilisateur");
+    private JTextField mdpUser = new JTextField("Mdp de l'utilisateur");
+    private JTextField newMdp = new JTextField("Nouveau mot de passe");
 
     public gestionUser() throws IOException {
         super("Gestion des utilisateurs"); 
@@ -92,14 +94,16 @@ public class gestionUser extends JFrame implements ActionListener {
 
         check1.setBounds(200, 350, 350, 25);
 
-        label1.setBounds(200,50,550,35);
-        label1.setFont(new Font("Sans-Serif", Font.BOLD, 40));
-        label2.setBounds(900,50,550,35);
-        label2.setFont(new Font("Sans-Serif", Font.BOLD, 40));
+        gestionUser.setBounds(200,50,550,35);
+        gestionUser.setFont(new Font("Sans-Serif", Font.BOLD, 40));
+        creaUSer.setBounds(900,50,550,35);
+        creaUSer.setFont(new Font("Sans-Serif", Font.BOLD, 40));
 
-        field1.setBounds(900,120,400,25);
-        field2.setBounds(900,220,400,25);
-        field3.setBounds(200,550,400,25);
+        nomUser.setBounds(900,120,400,25);
+        mdpUser.setBounds(900,220,400,25);
+        newMdp.setBounds(200,550,400,25);
+        prenomUser.setBounds(900,180,400,25);
+        loginUser.setBounds(900,150,400,25);
 
         panneauGestionUser.setLayout(null);
         
@@ -111,11 +115,11 @@ public class gestionUser extends JFrame implements ActionListener {
         panneauGestionUser.add(this.liste1);
         panneauGestionUser.add(this.choixTypeCamp);
         panneauGestionUser.add(this.check1);
-        panneauGestionUser.add(this.label1);
-        panneauGestionUser.add(this.label2);
-        panneauGestionUser.add(this.field1);
-        panneauGestionUser.add(this.field2);
-        panneauGestionUser.add(this.field3);
+        panneauGestionUser.add(this.gestionUser);
+        panneauGestionUser.add(this.creaUSer);
+        panneauGestionUser.add(this.nomUser);
+        panneauGestionUser.add(this.mdpUser);
+        panneauGestionUser.add(this.newMdp);
         panneauGestionUser.add(this.choixTypeCat);
         panneauGestionUser.add(this.btnModifMdp);
         panneauGestionUser.add(this.btnSupprCompte);
