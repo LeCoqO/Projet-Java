@@ -100,10 +100,10 @@ public class gestionUser extends JFrame implements ActionListener {
         creaUSer.setFont(new Font("Sans-Serif", Font.BOLD, 40));
 
         nomUser.setBounds(900,120,400,25);
-        mdpUser.setBounds(900,220,400,25);
+        mdpUser.setBounds(900,210,400,25);
         newMdp.setBounds(200,550,400,25);
-        prenomUser.setBounds(900,180,400,25);
-        loginUser.setBounds(900,150,400,25);
+        prenomUser.setBounds(900,150,400,25);
+        loginUser.setBounds(900,180,400,25);
 
         panneauGestionUser.setLayout(null);
         
@@ -125,6 +125,8 @@ public class gestionUser extends JFrame implements ActionListener {
         panneauGestionUser.add(this.btnSupprCompte);
         panneauGestionUser.add(this.btnValider);
         panneauGestionUser.add(btnCreer);
+        panneauGestionUser.add(prenomUser);
+        panneauGestionUser.add(loginUser);
     }
 
     @Override

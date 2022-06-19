@@ -3,8 +3,17 @@ package projetjava.Sources.Interface;
 
 import java.awt.event.*;
 import javax.swing.*;
+
+import projetjava.Sources.Connection.ConnectionBDD;
+import projetjava.Sources.Connection.Connector;
+import projetjava.Sources.Connection.ConnectorMySQL;
+import projetjava.Sources.DAO.DAOEmploye;
+import projetjava.Sources.Entity.Employe;
+
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Connection;
+import java.util.*;
 
 public class login extends JFrame implements ActionListener {
 
@@ -15,9 +24,14 @@ public class login extends JFrame implements ActionListener {
     private JTextField champTexte_pswd = new JTextField("", 20);
     private JPanel panneau = new JPanel();
 
+    Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL());
+    DAOEmploye emp = new DAOEmploye(connection);
+    List<Employe> les_emp = emp.getAll();
+
 
     public login() {
         super("Interface connexion");
+
         panneau.add(this.etiquette_user);
         panneau.add(this.champTexte_user);
         panneau.add(this.etiquette_pswd);
@@ -39,23 +53,24 @@ public class login extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
+        String login = champTexte_user.getText();
+        String psw = champTexte_pswd.getText();
 
-        if(e.getSource() == boutonConnexion) {
-            if() { //////////////////////////////////////////////////////////////////////////////// remplir condition
-                try {
-                    menu monMenu = new menu();
-                    monMenu.setBounds(0,0,1920,1080); 
-                    monMenu.setVisible(true);
-                    monMenu.setResizable(false);
-                    monMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        if (e.getSource() == boutonConnexion) {
+            for (Employe employe : les_emp) {
+                if (login == employe.getLogin() && psw == employe.getPassword()) {
+                    menu fenetreMenu = new menu();
+                    fenetreMenu.setBounds(650,350,300,150);
+                    fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    fenetreMenu.setVisible(true);
+                    fenetreMenu.setResizable(false);
                     this.dispose();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+                } else {
+                    // Si mdp correct passer à une autre interface sinon message erreur
+                    JOptionPane.showMessageDialog(panneau, "Identifiant / Mot de passe incorrect !");
                 }
-            } else {
-                // Si mdp correct passer à une autre interface sinon message erreur 
-                JOptionPane.showMessageDialog(panneau, "Identifiant / Mot de passe incorrect !");
             }
+
         }
     }
       

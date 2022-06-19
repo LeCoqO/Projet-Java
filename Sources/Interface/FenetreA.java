@@ -46,11 +46,6 @@ public class FenetreA {
                 fenetreLog.setVisible(true);
                 fenetreLog.setResizable(false);
 
-                menu fenetreMenu = new menu();
-                fenetreMenu.setBounds(650,350,300,150);
-                fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                fenetreMenu.setVisible(true);
-                fenetreMenu.setResizable(false);
             }
         });
     }
