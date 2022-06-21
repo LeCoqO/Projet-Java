@@ -7,22 +7,34 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import Connection.ConnectionBDD;
+import Connection.ConnectorMySQL;
+import DAO.DAOCampagne;
+import Entity.Campagne;
+
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 public class destParCamp extends JFrame {
 
+    // Connexion à la base 
+    Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL());
+    DAOCampagne camp = new DAOCampagne(connection);
+
     public destParCamp() {
 
-        initUI();
+        initUI(); // On initaialise l'interface utilisateur
     }
 
     private void initUI() {
 
-        CategoryDataset dataset = createDataset();
+        CategoryDataset dataset = createDataset(); 
 
-        JFreeChart chart = createChart(dataset);
+        JFreeChart chart = createChart(dataset); // On créer le graphique
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         chartPanel.setBackground(Color.white);
@@ -37,20 +49,20 @@ public class destParCamp extends JFrame {
 
     private CategoryDataset createDataset() {
 
+        List<Campagne> allCampagne = new ArrayList<>(camp.getAll()); // On récupère les campagnes depuis la base
+
         var dataset = new DefaultCategoryDataset();
-        dataset.setValue(46, "Destinataires", "Campagne 1");
-        dataset.setValue(19, "Destinataires", "Campagne 2");
-        dataset.setValue(29, "Destinataires", "Campagne 3");
-        dataset.setValue(22, "Destinataires", "Campagne 4");
-        dataset.setValue(40, "Destinataires", "Campagne 5");
-        dataset.setValue(56, "Destinataires", "Campagne 6");
+
+        for(int i=0; i<allCampagne.size(); i++) { // Pour chaque campagne on l'affiche dans le graphique
+            dataset.setValue(i, "Destinataires", (allCampagne.get(i)).getTitre());
+        }
 
         return dataset;
     }
 
     private JFreeChart createChart(CategoryDataset dataset) {
 
-        JFreeChart barChart = ChartFactory.createBarChart(
+        JFreeChart barChart = ChartFactory.createBarChart( 
                 "Nombre de destinataires par campagne",
                 "",
                 "Destinataires",

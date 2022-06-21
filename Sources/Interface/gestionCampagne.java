@@ -47,13 +47,6 @@ public class gestionCampagne extends JFrame implements ActionListener {
     private JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
     private JPanel panneauGestionCampagne = new JPanel();
 
-    /*
-     * public void paint(Graphics g){
-     * 
-     * g.drawLine(20, 20, 200, 180);
-     * }
-     */
-
     public gestionCampagne() throws IOException {
         super("Gestion des campagnes");
 
@@ -106,7 +99,6 @@ public class gestionCampagne extends JFrame implements ActionListener {
         DefaultListModel<String> modelU = new DefaultListModel<>();
         modelU.addElement("Catégorie utilisateurs");
 
-        // créer la liste des langages
         liste1 = new JList<>(model);
         liste1.setBounds(200, 120, 250, 150);
 
@@ -121,7 +113,7 @@ public class gestionCampagne extends JFrame implements ActionListener {
         choixTypeCamp2.setBounds(1200, 120, 200, 25);
         String tabCamp[] = { "Type de campagne" };
 
-        for (String string : tabCamp) {
+        for (String string : tabCamp) { 
             choixTypeCamp.addItem(string);
             choixTypeCamp2.addItem(string);
         }
@@ -131,9 +123,8 @@ public class gestionCampagne extends JFrame implements ActionListener {
                 jList1ValueChanged(evt);
             }
         });
-
-        
-
+   
+        // Ajout des valeurs pour le calendrier
         p.put("text.today", "Today");
         p.put("text.month", "Month");
         p.put("text.year", "Year");

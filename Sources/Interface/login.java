@@ -30,8 +30,6 @@ public class login extends JFrame implements ActionListener {
 
     Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL());
     DAOEmploye emp = new DAOEmploye(connection);
-    List<Employe> les_emp = emp.getAll();
-
 
     public login() {
         super("Interface connexion");
@@ -41,7 +39,7 @@ public class login extends JFrame implements ActionListener {
         panneau.add(this.etiquette_pswd);
         panneau.add(this.champTexte_pswd);
         panneau.add(this.boutonConnexion);
-        
+
         this.boutonConnexion.addActionListener(this);
         this.getContentPane().add(this.panneau);
         boutonConnexion.setBounds(100, 100, 200, 300);
@@ -51,7 +49,7 @@ public class login extends JFrame implements ActionListener {
         this.boutonConnexion.setEnabled(false);
 
         this.getRootPane().setDefaultButton(boutonConnexion);
-        
+
         this.getContentPane().add(this.panneau);
     }
 
@@ -59,25 +57,23 @@ public class login extends JFrame implements ActionListener {
 
         String login = champTexte_user.getText();
         String psw = champTexte_pswd.getText();
-
+        
         if (e.getSource() == boutonConnexion) {
-            for (Employe employe : les_emp) {
-                if (login == employe.getLogin() && psw == employe.getPassword()) {
-                    menu fenetreMenu = new menu();
-                    fenetreMenu.setBounds(650,350,300,150);
-                    fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    fenetreMenu.setVisible(true);
-                    fenetreMenu.setResizable(false);
-                    this.dispose();
-                } else {
-                    // Si mdp correct passer à une autre interface sinon message erreur
-                    JOptionPane.showMessageDialog(panneau, "Identifiant / Mot de passe incorrect !");
-                }
+
+            if (emp.getEmployeByLoginPsw(login, psw) != null) {
+                menu fenetreMenu = new menu();
+                fenetreMenu.setBounds(650, 350, 300, 150);
+                fenetreMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                fenetreMenu.setVisible(true);
+                fenetreMenu.setResizable(false);
+                this.dispose();
+            } else {
+                // Si mdp correct passer à une autre interface sinon message erreur
+                JOptionPane.showMessageDialog(panneau, "Identifiant / Mot de passe incorrect !");
             }
 
         }
     }
-      
 
     class EcouteurChampTexte implements KeyListener {
 

@@ -14,7 +14,7 @@ import Entity.Employe;
 
 public class FenetreA {
 
-    static boolean checkConnection(Connector connector) {
+    static boolean checkConnection(Connector connector) { // On test la connexion à la base
 
         if (ConnectionBDD.isInstanceOf(connector)) {
             System.out.println("La connexion à base " + connector.getNAME() + " est active");
@@ -27,20 +27,12 @@ public class FenetreA {
 
     public static void main(String[] args) {
 
-        Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL());
+        Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL()); // On initialise la connexion
         if (connection != null) {
             System.out.println("Connexion réussi !");
         }
-        System.out.println(connection);
-        checkConnection(new ConnectorMySQL());
-        DAOEmploye emp = new DAOEmploye(connection);
-        List<Employe> le_emp = emp.getAll();
-        for (Employe employe : le_emp) {
-            System.out.println(employe);
 
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() { // On lance la fenetre de connexion à l'application
             public void run() {
                 login fenetreLog = new login();
                 fenetreLog.setBounds(650,350,300,150);

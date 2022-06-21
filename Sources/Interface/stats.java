@@ -89,16 +89,16 @@ public class stats extends JFrame implements ActionListener{
 
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // Si on choisit ce bouton on affiche la liste des campagnes
         if(btnRadCamp.isSelected()) {
             choixListeCamp.setVisible(true);
             choixListeDest.setVisible(false);
-        } else if(btnRadDest.isSelected()) {
+        } else if(btnRadDest.isSelected()) { // Sinon on affiche la liste des destinataires
             choixListeCamp.setVisible(false);
             choixListeDest.setVisible(true);
         }
 
-        if(e.getSource() == btnRetour) {
+        if(e.getSource() == btnRetour) { 
             this.dispose();
             menu monMenu = new menu();
             monMenu.setBounds(650,350,300,150);

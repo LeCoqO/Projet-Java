@@ -28,7 +28,7 @@ public class menu extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == boutonStats) { 
+        if(e.getSource() == boutonStats) { // Si bouton stat cliqué alors on lance la fenetre des stats
             try {
                 stats mesStats = new stats();
                 mesStats.setBounds(0,0,1920,1080); 
@@ -40,7 +40,7 @@ public class menu extends JFrame implements ActionListener {
                 e1.printStackTrace();
             }
             
-        } else if(e.getSource() == boutonGU) {
+        } else if(e.getSource() == boutonGU) { // Si bouton gestion utilisateur est cliqué alors on lance la fenetre de gestion des utilisateurs
             try {
                 gestionUser mesUsers = new gestionUser();
                 mesUsers.setBounds(0,0,1920,1080); 
@@ -51,7 +51,7 @@ public class menu extends JFrame implements ActionListener {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-        } else if(e.getSource() == boutonGC) {
+        } else if(e.getSource() == boutonGC) { // Si bouton gestion campagne est cliqué alors on lance la fenetre de gestion des campagne
             try {
                 gestionCampagne mesCampagnes = new gestionCampagne();
                 mesCampagnes.setBounds(0,0,1920,1080); 

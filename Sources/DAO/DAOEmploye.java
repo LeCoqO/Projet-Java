@@ -150,4 +150,19 @@ public class DAOEmploye extends DAO<Employe> {
         return allEmploye;
     }
 
+    public Employe getEmployeByLoginPsw(String login, String psw) {
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet res = statement.executeQuery("Select * FROM employe WHERE Login='"+login+"' AND Password='"+psw+"'");    
+            res.next();
+            return new Employe(res.getInt("IdEmploye"),
+                    res.getString("NomEmploye"),
+                    res.getString("PrenomEmploye"),
+                    res.getString("Login"),
+                    res.getString("Password"),
+                    res.getString("Fonction"));
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 }
