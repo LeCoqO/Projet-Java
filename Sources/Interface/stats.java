@@ -1,4 +1,4 @@
-package projetjava.Sources.Interface;
+package Interface;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

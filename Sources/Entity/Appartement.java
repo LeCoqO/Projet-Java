@@ -1,4 +1,4 @@
-package projetjava.Sources.Entity;
+package Entity;
 
 public class Appartement {
 

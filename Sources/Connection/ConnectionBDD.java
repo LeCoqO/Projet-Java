@@ -1,4 +1,4 @@
-package projetjava.Sources.Connection;
+package Connection;
 
 import java.sql.*;
 

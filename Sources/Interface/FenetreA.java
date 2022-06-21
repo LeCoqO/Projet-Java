@@ -1,14 +1,16 @@
-package projetjava.Sources.Interface;
+package Interface;
 
-import javax.swing.*;
-import projetjava.Sources.Connection.ConnectionBDD;
-import projetjava.Sources. Connection.Connector;
-import projetjava.Sources.Connection.ConnectorMySQL;
-import projetjava.Sources.DAO.*;
-import projetjava.Sources.Entity.*;
-import java.util.*;
-import java.nio.channels.MulticastChannel;
-import java.sql.*;
+import java.sql.Connection;
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import Connection.ConnectionBDD;
+import Connection.Connector;
+import Connection.ConnectorMySQL;
+import DAO.DAOEmploye;
+import Entity.Employe;
 
 public class FenetreA {
 

@@ -1,4 +1,4 @@
-package projetjava.Sources.Interface;
+package Interface;
 
 
 import java.text.ParseException;

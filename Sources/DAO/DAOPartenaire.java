@@ -1,9 +1,13 @@
-package projetjava.Sources.DAO;
+package DAO;
 
-import projetjava.Sources.Entity.Partenaire;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import Entity.Partenaire;
 
 public class DAOPartenaire extends DAObis<Partenaire> {
 

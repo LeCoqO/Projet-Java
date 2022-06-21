@@ -1,4 +1,4 @@
-package projetjava.Sources.Connection;
+package Connection;
 
 /**
  * Implémentation de la classe Connector pour une connection à la base
