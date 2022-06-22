@@ -11,11 +11,12 @@ import java.util.List;
 import java.awt.*;
 import java.io.IOException;
 import java.sql.Connection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.xml.transform.Source;
 
 public class gestionUser extends JFrame implements ActionListener {
 
@@ -27,7 +28,9 @@ public class gestionUser extends JFrame implements ActionListener {
     private JButton btnSupprCompte = new JButton("Supprimer le compte");
     private JButton btnCreer = new JButton("Créer");
     private JPanel panneauGestionUser = new JPanel();
-    private JList<String> liste1 = new JList<>();
+    private DefaultListModel<String> model = new DefaultListModel<>();
+    private DefaultListModel<String> modelU = new DefaultListModel<>();
+    private JList<String> liste1 = new JList<>(model);
     private JComboBox<ComboItem> choixTypeCamp = new JComboBox<>();
     private JComboBox<String> choixTypeCat = new JComboBox<>();
     private JCheckBox check1 = new JCheckBox("Droit planification / lancement campagne");
@@ -36,15 +39,31 @@ public class gestionUser extends JFrame implements ActionListener {
     private JTextField field1 = new JTextField("Nom de l'utilisateur");
     private JTextField field2 = new JTextField("Mdp de l'utilisateur");
     private JTextField field3 = new JTextField("Nouveau mot de passe");
+
     Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL()); // Connexion avec la base
     DAOEmploye employe = new DAOEmploye(connection);
     List<Employe> listEmploye = employe.getAll();
     DAOCampagne campagne = new DAOCampagne(connection);
     List<Campagne> listCampagne = campagne.getAll();
     DAOCampagne Employecampagne = new DAOCampagne(connection);
+    List<Employe> listUtilisateurs = new ArrayList();
 
     public gestionUser() throws IOException {
         super("Gestion des utilisateurs");
+
+        for (Employe t : listEmploye) {
+            if (t.getFonction().equals("Utilisateur")) {
+                listUtilisateurs.add(t);
+            }
+        }
+
+        ListSelectionListener listSelectionListener = new ListSelectionListener() { /// LISTENER POUR JLIST (moche mais
+            /// fonctionnel);
+            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                System.out.println(listUtilisateurs.get(liste1.getSelectedIndex()).getPrenom());
+                System.out.println("test");
+            }
+        };
 
         if (connection != null) {
             System.out.println("Connexion réussi !");
@@ -87,8 +106,6 @@ public class gestionUser extends JFrame implements ActionListener {
         btnCreer.addActionListener(this);
         btnModifMdp.addActionListener(this);
 
-        DefaultListModel<String> model = new DefaultListModel<>();
-
         int nbUser = 0;
         for (Employe t : listEmploye) {
             if (t.getFonction().equals("Utilisateur")) {
@@ -97,11 +114,9 @@ public class gestionUser extends JFrame implements ActionListener {
             }
         }
 
-        DefaultListModel<String> modelU = new DefaultListModel<>();
         modelU.addElement("Catégorie utilisateurs");
 
         // créer la liste des langages
-        liste1 = new JList<>(model);
         liste1.setBounds(200, 120, 250, 150);
 
         // liste1.addListSelectionListener(new ListSelectionListener() {
@@ -115,7 +130,7 @@ public class gestionUser extends JFrame implements ActionListener {
 
         choixTypeCamp.setBounds(200, 300, 250, 25);
         for (Campagne t : listCampagne) {
-            choixTypeCamp.addItem(new ComboItem(t.getId(),t.getTitre()));
+            choixTypeCamp.addItem(new ComboItem(t.getId(), t.getTitre()));
         }
 
         choixTypeCat.setBounds(900, 320, 250, 25);
@@ -126,6 +141,8 @@ public class gestionUser extends JFrame implements ActionListener {
         }
 
         choixTypeCamp.addActionListener(this);
+
+        liste1.addListSelectionListener(listSelectionListener);
 
         check1.setBounds(200, 350, 350, 25);
 
@@ -160,18 +177,14 @@ public class gestionUser extends JFrame implements ActionListener {
         panneauGestionUser.add(btnCreer);
     }
 
-    public void valueChanged(ListSelectionEvent e) {
-        System.out.println("ca a changé la non ? ");
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         // if (list.getSelectedIndex() == -1) {
         // //No selection, disable fire button.
         // fireButton.setEnabled(false);
-        if (e.getSource() == choixTypeCamp || e.getSource() == liste1){
+        if (e.getSource() == choixTypeCamp || e.getSource() == liste1) {
             int index = liste1.getSelectedIndex();
-            
+            System.out.println("ca a changé la non ? ");
         }
         if (e.getSource() == btnRetour) {
             this.dispose();
@@ -190,12 +203,6 @@ public class gestionUser extends JFrame implements ActionListener {
         } else if (e.getSource() == btnValider) {
             int index = liste1.getSelectedIndex();
             System.out.println("Index Selected: " + index);
-            List<Employe> listUtilisateurs = new ArrayList();
-            for (Employe t : listEmploye) {
-                if (t.getFonction().equals("Utilisateur")) {
-                    listUtilisateurs.add(t);
-                }
-            }
             System.out.println(listUtilisateurs.get(index).getNom() + " " + listUtilisateurs.get(index).getPrenom());
             ComboItem choix = (ComboItem) choixTypeCamp.getSelectedItem();
             System.out.println(((ComboItem) choixTypeCamp.getSelectedItem()).getValue());
