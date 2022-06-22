@@ -45,7 +45,7 @@ public class gestionUser extends JFrame implements ActionListener {
     List<Employe> listEmploye = employe.getAll();
     DAOCampagne campagne = new DAOCampagne(connection);
     List<Campagne> listCampagne = campagne.getAll();
-    DAOCampagne Employecampagne = new DAOCampagne(connection);
+    DAOEmployeCampagne employeCampagne = new DAOEmployeCampagne(connection);
     List<Employe> listUtilisateurs = new ArrayList();
 
     public gestionUser() throws IOException {
@@ -62,6 +62,7 @@ public class gestionUser extends JFrame implements ActionListener {
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
                 System.out.println(listUtilisateurs.get(liste1.getSelectedIndex()).getPrenom());
                 System.out.println("test");
+                checkUpdateDroit();
             }
         };
 
@@ -177,14 +178,24 @@ public class gestionUser extends JFrame implements ActionListener {
         panneauGestionUser.add(btnCreer);
     }
 
+    public void checkUpdateDroit() {
+        int indexList = liste1.getSelectedIndex();
+        int indexCamp = ((ComboItem) choixTypeCamp.getSelectedItem()).getValue();
+        try {
+            EmployeCampagne leDroit = employeCampagne.selectById(indexCamp, listUtilisateurs.get(indexList).getId());
+            check1.setSelected(leDroit.isDroitCampagne());
+        } catch (Exception e) {
+            check1.setSelected(false);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // if (list.getSelectedIndex() == -1) {
         // //No selection, disable fire button.
         // fireButton.setEnabled(false);
         if (e.getSource() == choixTypeCamp || e.getSource() == liste1) {
-            int index = liste1.getSelectedIndex();
-            System.out.println("ca a changé la non ? ");
+            checkUpdateDroit();
         }
         if (e.getSource() == btnRetour) {
             this.dispose();
@@ -201,9 +212,28 @@ public class gestionUser extends JFrame implements ActionListener {
         } else if (e.getSource() == btnQuitter) {
             this.dispose();
         } else if (e.getSource() == btnValider) {
-            int index = liste1.getSelectedIndex();
-            System.out.println("Index Selected: " + index);
-            System.out.println(listUtilisateurs.get(index).getNom() + " " + listUtilisateurs.get(index).getPrenom());
+
+            int indexList = liste1.getSelectedIndex();
+            int indexCamp = ((ComboItem) choixTypeCamp.getSelectedItem()).getValue();
+            try {
+                if (employeCampagne.selectById(indexCamp, listUtilisateurs.get(indexList).getId()).equals(null)) {
+                    employeCampagne.create(
+                            new EmployeCampagne(indexCamp, listUtilisateurs.get(indexList).getId(),
+                                    check1.isSelected()));
+                } else {
+                    employeCampagne.update(
+                            new EmployeCampagne(indexCamp, listUtilisateurs.get(indexList).getId(),
+                                    check1.isSelected()));
+                }
+            } catch (Exception ex) {
+                employeCampagne.create(
+                        new EmployeCampagne(indexCamp, listUtilisateurs.get(indexList).getId(),
+                                check1.isSelected()));
+            }
+
+            System.out.println("Index Selected: " + indexList);
+            System.out.println(
+                    listUtilisateurs.get(indexList).getNom() + " " + listUtilisateurs.get(indexList).getPrenom());
             ComboItem choix = (ComboItem) choixTypeCamp.getSelectedItem();
             System.out.println(((ComboItem) choixTypeCamp.getSelectedItem()).getValue());
 

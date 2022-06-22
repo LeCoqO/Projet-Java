@@ -17,13 +17,21 @@ public class DAOEmployeCampagne extends DAO<EmployeCampagne> {
 
     @Override
     public boolean create(EmployeCampagne obj) {
+        System.out.println("insert into ass_employe_campagne values('"
+                + obj.getIdCampagne() + "' , '"
+                + obj.getIdEmploye() + "' , '"
+                + Boolean.compare(obj.isDroitCampagne(), false) + "')");
         try {
             Statement statement = this.connection.createStatement();
-            return !statement.execute("insert into ass_employe_campagne values('"
-                    + obj.getIdCampagne() + " , '"
+            System.out.println("marche");
+            boolean value = statement.execute("insert into ass_employe_campagne values('"
+                    + obj.getIdCampagne() + "'' , '"
                     + obj.getIdEmploye() + "' , '"
-                    + Boolean.compare(obj.isDroitCampagne(), false) + "' ;)");
+                    + Boolean.compare(obj.isDroitCampagne(), false) + "')");
+            System.out.println(value);
+            return !value;
         } catch (SQLException ex) {
+            System.out.println("marchepa");
             return false;
         }
     }
@@ -32,7 +40,7 @@ public class DAOEmployeCampagne extends DAO<EmployeCampagne> {
     public boolean delete(EmployeCampagne obj) {
         try {
             Statement statement = this.connection.createStatement();
-            return !statement.execute("delete from employe where IdCampagne = "
+            return !statement.execute("delete from ass_employe_campagne where IdCampagne = "
                     + obj.getIdCampagne() + " AND IdEmploye = "
                     + obj.getIdEmploye() + ";");
         } catch (SQLException ex) {
@@ -42,8 +50,15 @@ public class DAOEmployeCampagne extends DAO<EmployeCampagne> {
 
     @Override
     public boolean update(EmployeCampagne obj) {
-        // TODO Auto-generated method stub
-        return false;
+        try {
+            Statement statement = this.connection.createStatement();
+            return !statement.execute("update ass_employe_campagne set"
+                    + "DroitCampagne='" + Boolean.compare(obj.isDroitCampagne(), false) + "'WHERE "
+                    + "IdEmploye='" + obj.getIdEmploye() + " AND "
+                    + "IdCampagne='" + obj.getIdCampagne() + "')");
+        } catch (SQLException ex) {
+            return false;
+        }
     }
 
     @Override
@@ -55,7 +70,10 @@ public class DAOEmployeCampagne extends DAO<EmployeCampagne> {
     public EmployeCampagne selectById(int idCampagne, int idEmploye) {
         try {
             Statement statement = this.connection.createStatement();
-            ResultSet res = statement.executeQuery("Select * from employe where IdCampagne = "
+            System.out.println("Select * from employe where IdCampagne = "
+                    + idCampagne + " AND IdEmploye = "
+                    + idEmploye + ";");
+            ResultSet res = statement.executeQuery("Select * from ass_employe_campagne where IdCampagne = "
                     + idCampagne + " AND IdEmploye = "
                     + idEmploye + ";");
             res.next();
@@ -75,7 +93,7 @@ public class DAOEmployeCampagne extends DAO<EmployeCampagne> {
         List<EmployeCampagne> allEmployeCampagnes = new ArrayList<>();
         try {
             Statement statement = this.connection.createStatement();
-            ResultSet res = statement.executeQuery("Select * from employe");
+            ResultSet res = statement.executeQuery("Select * from ass_employe_campagne");
             while (res.next()) {
                 allEmployeCampagnes.add(new EmployeCampagne(res.getInt("IdCampagne"),
                         res.getInt("IdCampagne"),
