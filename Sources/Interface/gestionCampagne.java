@@ -1,6 +1,5 @@
 package Interface;
 
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -9,10 +8,16 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import Connection.*;
+import DAO.DAOCampagne;
+import Entity.Campagne;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,10 +37,9 @@ public class gestionCampagne extends JFrame implements ActionListener {
     private JTextField text2 = new JTextField("Titre");
     private JTextField text3 = new JTextField("Contenu du message");
     private JLabel label4 = new JLabel("Date déploiement initial :");
-    private JList<String> liste1 = new JList<>();
-    private JList<String> liste2 = new JList<>();
+    private JList<String> listeGraphiqueCampagne = new JList<>();
+    private JList<String> listeCategorieUtilisateur = new JList<>();
     private JComboBox<String> choixTypeCamp = new JComboBox<>();
-    private JComboBox<String> choixTypeCamp2 = new JComboBox<>();
     private UtilDateModel model = new UtilDateModel();
     private Properties p = new Properties();
     private JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
@@ -92,41 +96,42 @@ public class gestionCampagne extends JFrame implements ActionListener {
         label4.setFont(new Font("Sans-Serif", Font.CENTER_BASELINE, 15));
 
         DefaultListModel<String> model = new DefaultListModel<>();
-        model.addElement("Java");
-        model.addElement("PHP");
-        model.addElement("Python");
-        model.addElement("C++");
-        model.addElement("Perl");
-        model.addElement("Pascal");
-        model.addElement("Ruby");
+
+        Connection connection = ConnectionBDD.getInstance(new ConnectorMariaDB());
+        DAOCampagne campagne = new DAOCampagne(connection);
+
+        ArrayList<Campagne> listeCampagne = new ArrayList<Campagne>(campagne.getAll());
+
+        for (Campagne camp : listeCampagne) {
+            model.addElement(camp.getTitre());
+        }
 
         DefaultListModel<String> modelU = new DefaultListModel<>();
         modelU.addElement("Catégorie utilisateurs");
 
         // créer la liste des langages
-        liste1 = new JList<>(model);
-        liste1.setBounds(200, 120, 250, 150);
+        listeGraphiqueCampagne = new JList<>(model);
+        listeGraphiqueCampagne.setBounds(200, 120, 250, 150);
 
-        liste2 = new JList<>(modelU);
-        liste2.setBounds(1200, 300, 150, 200);
+        listeCategorieUtilisateur = new JList<>(modelU);
+        listeCategorieUtilisateur.setBounds(1200, 300, 150, 200);
 
         text1.setBounds(500, 120, 150, 20);
         text2.setBounds(900, 120, 250, 20);
         text3.setBounds(900, 160, 250, 150);
 
-        choixTypeCamp.setBounds(500, 500, 250, 25);
-        choixTypeCamp2.setBounds(1200, 120, 200, 25);
-        String tabCamp[] = { "Type de campagne" };
+        choixTypeCamp.setBounds(1200, 120, 200, 25);
+        
+        String typeCampagne[] = { "Information", "Marketing", "Urgence" };
 
-        liste1.addListSelectionListener(new ListSelectionListener() {
+        listeGraphiqueCampagne.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent evt) {
                 jList1ValueChanged(evt);
             }
         });
 
-        for (String string : tabCamp) {
-            choixTypeCamp.addItem(string);
-            choixTypeCamp2.addItem(string);
+        for (String type : typeCampagne) {
+            choixTypeCamp.addItem(type);
         }
 
         p.put("text.today", "Today");
@@ -141,14 +146,13 @@ public class gestionCampagne extends JFrame implements ActionListener {
         panneauGestionCampagne.add(this.label1);
         panneauGestionCampagne.add(this.label2);
         panneauGestionCampagne.add(this.label3);
-        panneauGestionCampagne.add(this.liste1);
-        panneauGestionCampagne.add(this.liste2);
+        panneauGestionCampagne.add(this.listeGraphiqueCampagne);
+        panneauGestionCampagne.add(this.listeCategorieUtilisateur);
         panneauGestionCampagne.add(this.text1);
         panneauGestionCampagne.add(this.text2);
         panneauGestionCampagne.add(this.text3);
         panneauGestionCampagne.add(this.label4);
         panneauGestionCampagne.add(choixTypeCamp);
-        panneauGestionCampagne.add(choixTypeCamp2);
         panneauGestionCampagne.add(this.btnRetour);
         panneauGestionCampagne.add(this.btnDeco);
         panneauGestionCampagne.add(this.btnQuitter);
@@ -162,8 +166,8 @@ public class gestionCampagne extends JFrame implements ActionListener {
     }
 
     private void jList1ValueChanged(ListSelectionEvent evt) {
-        if (!liste1.getValueIsAdjusting()) {
-            text1.setText((String) liste1.getSelectedValue());
+        if (!listeGraphiqueCampagne.getValueIsAdjusting()) {
+            text1.setText((String) listeGraphiqueCampagne.getSelectedValue());
         }
     }
 

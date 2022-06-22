@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOPartenaire extends DAObis<Partenaire> {
+public class DAOPartenaire extends DAO<Partenaire> {
 
     /**
      * Constructeur d'un objet d'accès à la base
@@ -111,7 +111,6 @@ public class DAOPartenaire extends DAObis<Partenaire> {
      * @param name correspond au nom du partenaire
      * @return un objet Partenaire
      */
-    @Override
     public Partenaire selectByName(String name) {
         try {
             Statement statement = this.connection.createStatement();

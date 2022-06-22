@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOCampagne extends DAObis<Campagne> {
+public class DAOCampagne extends DAO<Campagne> {
     /**
      * Constructeur d'un objet d'accès à la base
      *
@@ -104,7 +104,6 @@ public class DAOCampagne extends DAObis<Campagne> {
      * @param name correspond au nom de la campagne
      * @return un objet Campagne
      */
-    @Override
     public Campagne selectByName(String name) {
         try {
             Statement statement = this.connection.createStatement();

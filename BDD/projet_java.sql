@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `campagne`;
 CREATE TABLE IF NOT EXISTS `campagne` (
   `IdCampagne` int(11) NOT NULL AUTO_INCREMENT,
   `MessageCampagne` varchar(255) COLLATE utf8_bin NOT NULL,
-  `TypeCampagne` varchar(50) COLLATE utf8_bin NOT NULL,
+  `TypeCampagne` enum('Information', 'Marketing', 'Urgence') COLLATE utf8_bin NOT NULL,
   `TitreCampagne` varchar(50) COLLATE utf8_bin NOT NULL,
   `DateCampagne` date NOT NULL,
   PRIMARY KEY (`IdCampagne`)

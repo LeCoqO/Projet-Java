@@ -9,7 +9,7 @@ public class ConnectorMariaDB extends Connector {
      * Constructeur du connecteur
      */
     public ConnectorMariaDB() {
-        super("jdbc:mariadb://localhost:8080/projet_java", "root", "", "projet_java");
+        super("jdbc:mariadb://localhost:3306/projet_java", "root", "", "projet_java");
     }
 
 }
