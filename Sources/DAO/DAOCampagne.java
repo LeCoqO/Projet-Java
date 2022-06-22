@@ -144,4 +144,26 @@ public class DAOCampagne extends DAO<Campagne> {
         return allCampagne;
     }
 
+    public int getNbType(String type) {
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT COUNT(TypeCampagne) AS nbType FROM campagne WHERE TypeCampagne = '"+type+"'");
+            res.next();
+            return res.getInt("nbType");
+        } catch (SQLException ex) {
+            return -1;
+        }
+    }
+
+    public String getTitre(int idCampagne) {
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT TitreCampagne FROM campagne WHERE IdCampagne = '"+idCampagne+"'");
+            res.next();
+            return res.getString("TitreCampagne");
+        } catch (SQLException ex) {
+            return "";
+        }
+    }
+
 }

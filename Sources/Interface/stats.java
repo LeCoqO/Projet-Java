@@ -15,7 +15,8 @@ public class stats extends JFrame implements ActionListener{
     private JButton btnRetour = new JButton();
     private JButton btnDeco = new JButton();
     private JButton btnQuitter = new JButton();
-    private JButton btnStats = new JButton("Stats");
+    private JButton btnDestParCamp = new JButton("Destinataire par campagne");
+    private JButton btnNbCampParType = new JButton("Nombre de campagne par type");
     private JPanel panneauMenu = new JPanel();
     private JRadioButton btnRadCamp = new JRadioButton("Recherche par campagne");
     private JRadioButton btnRadDest = new JRadioButton("Recherche par destinataire");
@@ -53,7 +54,8 @@ public class stats extends JFrame implements ActionListener{
         panneauMenu.add(this.btnRetour);
         panneauMenu.add(this.btnDeco);
         panneauMenu.add(this.btnQuitter);
-        panneauMenu.add(this.btnStats);
+        panneauMenu.add(this.btnDestParCamp);
+        panneauMenu.add(this.btnNbCampParType);
         panneauMenu.add(btnRadCamp);
         panneauMenu.add(btnRadDest);
         panneauMenu.add(choixListeCamp);
@@ -66,8 +68,11 @@ public class stats extends JFrame implements ActionListener{
         btnDeco.addActionListener(this);
         btnQuitter.addActionListener(this);
         
-        btnStats.setBounds(1000,60,150,50);
-        btnStats.addActionListener(this);
+        btnDestParCamp.setBounds(850,60,350,50);
+        btnDestParCamp.addActionListener(this);
+
+        btnNbCampParType.setBounds(850,120,350,50);
+        btnNbCampParType.addActionListener(this);
 
         btnRadCamp.setBounds(400, 20, 175, 20);
         btnRadDest.setBounds(600, 20, 180, 20);
@@ -112,14 +117,19 @@ public class stats extends JFrame implements ActionListener{
             maPageLogin.setResizable(false);
         } else if(e.getSource() == btnQuitter){
             this.dispose();
-        } else if(e.getSource() == btnStats) {
-            this.dispose();
+        } else if(e.getSource() == btnDestParCamp) {
             destParCamp maPageStats = new destParCamp();
             maPageStats.setBounds(0,0,1920,1080);
             maPageStats.setVisible(true);
             maPageStats.setResizable(false);
-            maPageStats.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        }
+            maPageStats.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } else if(e.getSource() == btnNbCampParType) {
+            NbCampParType campParType = new NbCampParType();
+            campParType.setBounds(0,0,1920,1080);
+            campParType.setVisible(true);
+            campParType.setResizable(false);
+            campParType.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }    
 
     }
 }

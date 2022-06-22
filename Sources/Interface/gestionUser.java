@@ -20,6 +20,7 @@ public class gestionUser extends JFrame implements ActionListener {
     private JButton btnCreer = new JButton("Créer");
     private JPanel panneauGestionUser = new JPanel();
     private JList<String> liste1 = new JList<>();
+    private JList<String> liste2 = new JList<>();
     private JComboBox<String> choixTypeCamp = new JComboBox<>();
     private JComboBox<String> choixTypeCat = new JComboBox<>();
     private JCheckBox check1 = new JCheckBox("Droit planification / lancement campagne"); 
@@ -52,9 +53,9 @@ public class gestionUser extends JFrame implements ActionListener {
         btnRetour.setBounds(10,60,50,50);
         btnDeco.setBounds(10,360,50,50);
         btnQuitter.setBounds(10,720,50,50);
-        btnModifMdp.setBounds(200,650,200,50);
+        btnModifMdp.setBounds(500,650,200,50);
         btnValider.setBounds(200,400,250,50);
-        btnSupprCompte.setBounds(200,750,200,50);
+        btnSupprCompte.setBounds(500,750,200,50);
         btnCreer.setBounds(900,450,150,50);
         btnRetour.addActionListener(this);
         btnDeco.addActionListener(this);
@@ -78,6 +79,8 @@ public class gestionUser extends JFrame implements ActionListener {
         //créer la liste des langages
         liste1 = new JList<>(model);
         liste1.setBounds(200,120,250,150);
+        liste2 = new JList<>(model);
+        liste2.setBounds(200,550,200,250);
 
         choixTypeCamp.setBounds(200, 300, 250, 25);
         String tabCamp[] = { "Type de campagne" };
@@ -101,7 +104,7 @@ public class gestionUser extends JFrame implements ActionListener {
 
         nomUser.setBounds(900,120,400,25);
         mdpUser.setBounds(900,210,400,25);
-        newMdp.setBounds(200,550,400,25);
+        newMdp.setBounds(500,550,200,25);
         prenomUser.setBounds(900,150,400,25);
         loginUser.setBounds(900,180,400,25);
 
@@ -113,6 +116,7 @@ public class gestionUser extends JFrame implements ActionListener {
         panneauGestionUser.add(this.btnDeco);
         panneauGestionUser.add(this.btnQuitter);
         panneauGestionUser.add(this.liste1);
+        panneauGestionUser.add(this.liste2);
         panneauGestionUser.add(this.choixTypeCamp);
         panneauGestionUser.add(this.check1);
         panneauGestionUser.add(this.gestionUser);

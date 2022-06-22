@@ -3,11 +3,11 @@ package Entity;
 public class Campagne_Locataire {
 
     private int idCampagne;
-    private int IdLocataire;
+    private int idLocataire;
 
     public Campagne_Locataire(int idCampagne, int idLocataire) {
         this.idCampagne = idCampagne;
-        IdLocataire = idLocataire;
+        this.idLocataire = idLocataire;
     }
 
     public int getIdCampagne() {
@@ -19,11 +19,11 @@ public class Campagne_Locataire {
     }
 
     public int getIdLocataire() {
-        return IdLocataire;
+        return idLocataire;
     }
 
     public void setIdLocataire(int idLocataire) {
-        IdLocataire = idLocataire;
+        this.idLocataire = idLocataire;
     }
 
 }

@@ -27,7 +27,7 @@ public class DAOCampagneLocataire extends DAO<Campagne_Locataire> {
     public boolean delete(Campagne_Locataire obj) {
         try {
             Statement statement = this.connection.createStatement();
-            return !statement.execute("delete from campagne where IdLocataire = "
+            return !statement.execute("delete from ass_campagne_locataire where IdLocataire = "
                     + obj.getIdLocataire() + " AND IdCampagne = "
                     + obj.getIdCampagne() + ";");
         } catch (SQLException ex) {
@@ -44,7 +44,7 @@ public class DAOCampagneLocataire extends DAO<Campagne_Locataire> {
     public Campagne_Locataire selectById(int idCampagne, int idLocataire) {
         try {
             Statement statement = this.connection.createStatement();
-            ResultSet res = statement.executeQuery("Select * from employe where IdCampagne = "
+            ResultSet res = statement.executeQuery("Select * from ass_campagne_locataire where IdCampagne = "
                     + idCampagne + " AND IdLocataire = "
                     + idLocataire + ";");
             res.next();
@@ -63,7 +63,7 @@ public class DAOCampagneLocataire extends DAO<Campagne_Locataire> {
         List<Campagne_Locataire> allCampagneLocataire = new ArrayList<>();
         try {
             Statement statement = this.connection.createStatement();
-            ResultSet res = statement.executeQuery("Select * from employe");
+            ResultSet res = statement.executeQuery("Select * from ass_campagne_locataire ORDER BY IdCampagne ASC");
             while (res.next()) {
                 allCampagneLocataire.add(new Campagne_Locataire(res.getInt("IdCampagne"),(res.getInt("IdLocataire"))));
             }
