@@ -53,6 +53,7 @@ public class DAOEmploye extends DAO<Employe> {
             return false;
         }
     }
+
     /**
      * Supprime un employé de la base à partir d'un objet Employe
      *
@@ -64,7 +65,9 @@ public class DAOEmploye extends DAO<Employe> {
     public boolean delete(Employe obj) {
         try {
             Statement statement = this.connection.createStatement();
-            return !statement.execute("delete from employe where id=" + obj.getId());
+            String sql = "delete from employe where IdEmploye=" + obj.getId();
+            System.out.println(sql);
+            return !statement.execute(sql);
         } catch (SQLException ex) {
             return false;
         }
@@ -81,14 +84,17 @@ public class DAOEmploye extends DAO<Employe> {
     public boolean update(Employe obj) {
         try {
             Statement statement = this.connection.createStatement();
-            return !statement.execute("update employe set"
+            String sql = "update employe set "
                     + "NomEmploye='" + obj.getNom() + "' , "
-                    + "PrenomEmploye='" + obj.getPrenom() + "' "
+                    + "PrenomEmploye='" + obj.getPrenom() + "', "
                     + "Login='" + obj.getLogin() + "' , "
                     + "Password='" + obj.getPassword() + "' , "
-                    + "Fonction='" + obj.getFonction() + "' , "
-                    + "where IdEmploye =" + obj.getId() + ")");
+                    + "Fonction='" + obj.getFonction() + "'"
+                    + "where IdEmploye =" + obj.getId() + ";";
+            System.out.println(sql);
+            return !statement.execute(sql);
         } catch (SQLException ex) {
+            System.out.println("marche pas la update de employe | " + ex);
             return false;
         }
     }

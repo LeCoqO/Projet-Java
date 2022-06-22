@@ -28,17 +28,17 @@ public class gestionUser extends JFrame implements ActionListener {
     private JButton btnSupprCompte = new JButton("Supprimer le compte");
     private JButton btnCreer = new JButton("Créer");
     private JPanel panneauGestionUser = new JPanel();
-    private DefaultListModel<String> model = new DefaultListModel<>();
-    private DefaultListModel<String> modelU = new DefaultListModel<>();
-    private JList<String> liste1 = new JList<>(model);
+    private DefaultListModel<String> modelUsers = new DefaultListModel<>();
+    private DefaultListModel<String> modelCatUser = new DefaultListModel<>();
+    private JList<String> liste1 = new JList<>(modelUsers);
     private JComboBox<ComboItem> choixTypeCamp = new JComboBox<>();
     private JComboBox<String> choixTypeCat = new JComboBox<>();
     private JCheckBox check1 = new JCheckBox("Droit planification / lancement campagne");
     private JLabel label1 = new JLabel("Gestion des utilisateurs");
     private JLabel label2 = new JLabel("Création d'un utilisateur");
-    private JTextField field1 = new JTextField("Nom de l'utilisateur");
-    private JTextField field2 = new JTextField("Mdp de l'utilisateur");
-    private JTextField field3 = new JTextField("Nouveau mot de passe");
+    private JTextField fieldUser = new JTextField("Nom de l'utilisateur");
+    private JTextField fieldPswd = new JTextField("Mdp de l'utilisateur");
+    private JTextField fieldChangePswd = new JTextField("Nouveau mot de passe");
 
     Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL()); // Connexion avec la base
     DAOEmploye employe = new DAOEmploye(connection);
@@ -60,8 +60,6 @@ public class gestionUser extends JFrame implements ActionListener {
         ListSelectionListener listSelectionListener = new ListSelectionListener() { /// LISTENER POUR JLIST (moche mais
             /// fonctionnel);
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
-                System.out.println(listUtilisateurs.get(liste1.getSelectedIndex()).getPrenom());
-                System.out.println("test");
                 checkUpdateDroit();
             }
         };
@@ -69,6 +67,12 @@ public class gestionUser extends JFrame implements ActionListener {
         if (connection != null) {
             System.out.println("Connexion réussi !");
 
+        }
+
+        int nbUser = 0;
+        for (Employe t : listUtilisateurs) {
+            modelUsers.add(nbUser, t.getNom() + " " + t.getPrenom());
+            nbUser++;
         }
 
         /*
@@ -106,28 +110,12 @@ public class gestionUser extends JFrame implements ActionListener {
         btnValider.addActionListener(this);
         btnCreer.addActionListener(this);
         btnModifMdp.addActionListener(this);
+        btnSupprCompte.addActionListener(this);
 
-        int nbUser = 0;
-        for (Employe t : listEmploye) {
-            if (t.getFonction().equals("Utilisateur")) {
-                model.add(nbUser, t.getNom() + " " + t.getPrenom());
-                nbUser++;
-            }
-        }
-
-        modelU.addElement("Catégorie utilisateurs");
+        modelCatUser.addElement("Catégorie utilisateurs");
 
         // créer la liste des langages
         liste1.setBounds(200, 120, 250, 150);
-
-        // liste1.addListSelectionListener(new ListSelectionListener() {
-        // public void valueChanged(ListSelectionEvent evt) {
-        // Boolean checked = false;
-        // if
-
-        // check1.setSelected (checked));
-        // }
-        // });
 
         choixTypeCamp.setBounds(200, 300, 250, 25);
         for (Campagne t : listCampagne) {
@@ -152,9 +140,9 @@ public class gestionUser extends JFrame implements ActionListener {
         label2.setBounds(900, 50, 550, 35);
         label2.setFont(new Font("Sans-Serif", Font.BOLD, 40));
 
-        field1.setBounds(900, 120, 400, 25);
-        field2.setBounds(900, 220, 400, 25);
-        field3.setBounds(200, 550, 400, 25);
+        fieldUser.setBounds(900, 120, 400, 25);
+        fieldPswd.setBounds(900, 220, 400, 25);
+        fieldChangePswd.setBounds(200, 550, 400, 25);
 
         panneauGestionUser.setLayout(null);
 
@@ -168,9 +156,9 @@ public class gestionUser extends JFrame implements ActionListener {
         panneauGestionUser.add(this.check1);
         panneauGestionUser.add(this.label1);
         panneauGestionUser.add(this.label2);
-        panneauGestionUser.add(this.field1);
-        panneauGestionUser.add(this.field2);
-        panneauGestionUser.add(this.field3);
+        panneauGestionUser.add(this.fieldUser);
+        panneauGestionUser.add(this.fieldPswd);
+        panneauGestionUser.add(this.fieldChangePswd);
         panneauGestionUser.add(this.choixTypeCat);
         panneauGestionUser.add(this.btnModifMdp);
         panneauGestionUser.add(this.btnSupprCompte);
@@ -180,11 +168,19 @@ public class gestionUser extends JFrame implements ActionListener {
 
     public void checkUpdateDroit() {
         int indexList = liste1.getSelectedIndex();
+        if (indexList < 0) {
+            indexList = 0;
+        }
         int indexCamp = ((ComboItem) choixTypeCamp.getSelectedItem()).getValue();
+        System.out.println("indexList : " + indexList + " | indexCamp : " + indexCamp + " | indexUser : "
+                + listUtilisateurs.get(indexList).getId());
         try {
-            EmployeCampagne leDroit = employeCampagne.selectById(indexCamp, listUtilisateurs.get(indexList).getId());
+            EmployeCampagne leDroit = employeCampagne.selectByIds(indexCamp, listUtilisateurs.get(indexList).getId());
             check1.setSelected(leDroit.isDroitCampagne());
-        } catch (Exception e) {
+            System.out.println(leDroit.getIdCampagne() + " + Emplone" + listUtilisateurs.get(indexList).getId());
+            System.out.println("pas crash");
+        } catch (Exception e) { // Exception "normale", on intercepte l'absence de valeur dans la table pour cet
+                                // employé a cette campagne. Donc c'est forcément false
             check1.setSelected(false);
         }
     }
@@ -194,7 +190,7 @@ public class gestionUser extends JFrame implements ActionListener {
         // if (list.getSelectedIndex() == -1) {
         // //No selection, disable fire button.
         // fireButton.setEnabled(false);
-        if (e.getSource() == choixTypeCamp || e.getSource() == liste1) {
+        if (e.getSource() == choixTypeCamp) {
             checkUpdateDroit();
         }
         if (e.getSource() == btnRetour) {
@@ -214,9 +210,12 @@ public class gestionUser extends JFrame implements ActionListener {
         } else if (e.getSource() == btnValider) {
 
             int indexList = liste1.getSelectedIndex();
+            if (indexList < 0) {
+                indexList = 0;
+            }
             int indexCamp = ((ComboItem) choixTypeCamp.getSelectedItem()).getValue();
             try {
-                if (employeCampagne.selectById(indexCamp, listUtilisateurs.get(indexList).getId()).equals(null)) {
+                if (employeCampagne.selectByIds(indexCamp, listUtilisateurs.get(indexList).getId()).equals(null)) {
                     employeCampagne.create(
                             new EmployeCampagne(indexCamp, listUtilisateurs.get(indexList).getId(),
                                     check1.isSelected()));
@@ -231,16 +230,33 @@ public class gestionUser extends JFrame implements ActionListener {
                                 check1.isSelected()));
             }
 
-            System.out.println("Index Selected: " + indexList);
-            System.out.println(
-                    listUtilisateurs.get(indexList).getNom() + " " + listUtilisateurs.get(indexList).getPrenom());
             ComboItem choix = (ComboItem) choixTypeCamp.getSelectedItem();
-            System.out.println(((ComboItem) choixTypeCamp.getSelectedItem()).getValue());
 
             JOptionPane.showMessageDialog(panneauGestionUser, "Informations modifiées");
+        } else if (e.getSource() == btnSupprCompte) {
+            int indexList = liste1.getSelectedIndex();
+            if (indexList < 0) {
+                indexList = 0;
+            }
+            List<EmployeCampagne> EmployesEtCampagne = employeCampagne.getAll();
+            for (EmployeCampagne t : EmployesEtCampagne) {
+                if (t.getIdEmploye() == listUtilisateurs.get(indexList).getId()) {
+                    employeCampagne.delete(t);
+                }
+            }
+            employe.delete(listUtilisateurs.get(indexList));
+            JOptionPane.showMessageDialog(panneauGestionUser, "Utilisateur supprimé");
         } else if (e.getSource() == btnCreer) {
+            employe.createWoID(new Employe(0, "Mat", "JB", fieldUser.getText(), fieldPswd.getText(), "Utilisateur"));
             JOptionPane.showMessageDialog(panneauGestionUser, "Utilisateur créé");
         } else if (e.getSource() == btnModifMdp) {
+            int indexList = liste1.getSelectedIndex();
+            if (indexList < 0) {
+                indexList = 0;
+            }
+            listUtilisateurs.get(indexList).setPassword(fieldChangePswd.getText());
+            ;
+            employe.update(listUtilisateurs.get(indexList));
             JOptionPane.showMessageDialog(panneauGestionUser, "Mot de passe modifié");
         }
 
