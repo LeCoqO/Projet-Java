@@ -29,16 +29,19 @@ public class gestionUser extends JFrame implements ActionListener {
     private JButton btnCreer = new JButton("Créer");
     private JPanel panneauGestionUser = new JPanel();
     private DefaultListModel<String> modelUsers = new DefaultListModel<>();
-    private DefaultListModel<String> modelCatUser = new DefaultListModel<>();
+    private DefaultListModel<String> modelEmployes = new DefaultListModel<>();
     private JList<String> liste1 = new JList<>(modelUsers);
+    private JList<String> liste2 = new JList<>(modelEmployes);
     private JComboBox<ComboItem> choixTypeCamp = new JComboBox<>();
     private JComboBox<String> choixTypeCat = new JComboBox<>();
     private JCheckBox check1 = new JCheckBox("Droit planification / lancement campagne");
     private JLabel label1 = new JLabel("Gestion des utilisateurs");
     private JLabel label2 = new JLabel("Création d'un utilisateur");
-    private JTextField fieldUser = new JTextField("Nom de l'utilisateur");
-    private JTextField fieldPswd = new JTextField("Mdp de l'utilisateur");
-    private JTextField fieldChangePswd = new JTextField("Nouveau mot de passe");
+    private JTextField nomUser = new JTextField("Nom de l'utilisateur");
+    private JTextField prenomUser = new JTextField("Prenom de l'utilisateur");
+    private JTextField loginUser = new JTextField("Login de l'utilisateur");
+    private JTextField mdpUser = new JTextField("Mdp de l'utilisateur");
+    private JTextField newMdp = new JTextField("Nouveau mot de passe");
 
     Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL()); // Connexion avec la base
     DAOEmploye employe = new DAOEmploye(connection);
@@ -69,11 +72,7 @@ public class gestionUser extends JFrame implements ActionListener {
 
         }
 
-        int nbUser = 0;
-        for (Employe t : listUtilisateurs) {
-            modelUsers.add(nbUser, t.getNom() + " " + t.getPrenom());
-            nbUser++;
-        }
+        updateLists();
 
         /*
          * BufferedImage bufferedImage = ImageIO.read(new File(
@@ -100,9 +99,9 @@ public class gestionUser extends JFrame implements ActionListener {
         btnRetour.setBounds(10, 60, 50, 50);
         btnDeco.setBounds(10, 360, 50, 50);
         btnQuitter.setBounds(10, 720, 50, 50);
-        btnModifMdp.setBounds(200, 650, 200, 50);
+        btnModifMdp.setBounds(500, 650, 200, 50);
         btnValider.setBounds(200, 400, 250, 50);
-        btnSupprCompte.setBounds(200, 750, 200, 50);
+        btnSupprCompte.setBounds(500, 750, 200, 50);
         btnCreer.setBounds(900, 450, 150, 50);
         btnRetour.addActionListener(this);
         btnDeco.addActionListener(this);
@@ -112,19 +111,14 @@ public class gestionUser extends JFrame implements ActionListener {
         btnModifMdp.addActionListener(this);
         btnSupprCompte.addActionListener(this);
 
-        modelCatUser.addElement("Catégorie utilisateurs");
-
         // créer la liste des langages
         liste1.setBounds(200, 120, 250, 150);
+        liste2.setBounds(200, 550, 200, 250);
 
         choixTypeCamp.setBounds(200, 300, 250, 25);
-        for (Campagne t : listCampagne) {
-            choixTypeCamp.addItem(new ComboItem(t.getId(), t.getTitre()));
-        }
-
         choixTypeCat.setBounds(900, 320, 250, 25);
-        String tabCat[] = { "Catégorie" };
 
+        String tabCat[] = { "Utilisateur", "Gestionnaire", "Administrateur" };
         for (String string2 : tabCat) {
             choixTypeCat.addItem(string2);
         }
@@ -140,9 +134,12 @@ public class gestionUser extends JFrame implements ActionListener {
         label2.setBounds(900, 50, 550, 35);
         label2.setFont(new Font("Sans-Serif", Font.BOLD, 40));
 
-        fieldUser.setBounds(900, 120, 400, 25);
-        fieldPswd.setBounds(900, 220, 400, 25);
-        fieldChangePswd.setBounds(200, 550, 400, 25);
+        nomUser.setBounds(900, 120, 400, 25);
+        mdpUser.setBounds(900, 210, 400, 25);
+        prenomUser.setBounds(900, 150, 400, 25);
+        loginUser.setBounds(900, 180, 400, 25);
+
+        newMdp.setBounds(500, 550, 200, 25);
 
         panneauGestionUser.setLayout(null);
 
@@ -152,13 +149,16 @@ public class gestionUser extends JFrame implements ActionListener {
         panneauGestionUser.add(this.btnDeco);
         panneauGestionUser.add(this.btnQuitter);
         panneauGestionUser.add(this.liste1);
+        panneauGestionUser.add(this.liste2);
         panneauGestionUser.add(this.choixTypeCamp);
         panneauGestionUser.add(this.check1);
         panneauGestionUser.add(this.label1);
         panneauGestionUser.add(this.label2);
-        panneauGestionUser.add(this.fieldUser);
-        panneauGestionUser.add(this.fieldPswd);
-        panneauGestionUser.add(this.fieldChangePswd);
+        panneauGestionUser.add(this.nomUser);
+        panneauGestionUser.add(this.prenomUser);
+        panneauGestionUser.add(this.loginUser);
+        panneauGestionUser.add(this.mdpUser);
+        panneauGestionUser.add(this.newMdp);
         panneauGestionUser.add(this.choixTypeCat);
         panneauGestionUser.add(this.btnModifMdp);
         panneauGestionUser.add(this.btnSupprCompte);
@@ -167,6 +167,7 @@ public class gestionUser extends JFrame implements ActionListener {
     }
 
     public void checkUpdateDroit() {
+        updateLists();
         int indexList = liste1.getSelectedIndex();
         if (indexList < 0) {
             indexList = 0;
@@ -180,8 +181,45 @@ public class gestionUser extends JFrame implements ActionListener {
             System.out.println(leDroit.getIdCampagne() + " + Emplone" + listUtilisateurs.get(indexList).getId());
             System.out.println("pas crash");
         } catch (Exception e) { // Exception "normale", on intercepte l'absence de valeur dans la table pour cet
-                                // employé a cette campagne. Donc c'est forcément false
+            System.out.println("probleme dans le checkupdatedroit"); // employé a cette campagne. Donc c'est forcément
+                                                                     // false
             check1.setSelected(false);
+        }
+    }
+
+    public void updateLists() {
+        System.out.println("appelé");
+        listEmploye = employe.getAll();
+        listCampagne = campagne.getAll();
+        List<Employe> listUtilisateurs = new ArrayList();
+
+        for (Employe t : listEmploye) {
+            if (t.getFonction().equals("Utilisateur")) {
+                listUtilisateurs.add(t);
+            }
+        }
+
+        modelEmployes = new DefaultListModel();
+        modelUsers = new DefaultListModel();
+        modelEmployes.clear();
+        modelUsers.clear();
+
+        int nbUser = 0;
+        for (Employe t : listUtilisateurs) {
+            modelUsers.add(nbUser, t.getNom() + " " + t.getPrenom());
+            nbUser++;
+        }
+
+        int nbEmployes = 0;
+        for (Employe t : listEmploye) {
+            modelEmployes.add(nbEmployes, t.getNom() + " " + t.getPrenom());
+            nbEmployes++;
+        }
+        liste1.setModel(modelUsers);
+        liste2.setModel(modelEmployes);
+        choixTypeCamp = new JComboBox<>();
+        for (Campagne t : listCampagne) {
+            choixTypeCamp.addItem(new ComboItem(t.getId(), t.getTitre()));
         }
     }
 
@@ -233,30 +271,34 @@ public class gestionUser extends JFrame implements ActionListener {
             ComboItem choix = (ComboItem) choixTypeCamp.getSelectedItem();
 
             JOptionPane.showMessageDialog(panneauGestionUser, "Informations modifiées");
+            updateLists();
         } else if (e.getSource() == btnSupprCompte) {
-            int indexList = liste1.getSelectedIndex();
+            int indexList = liste2.getSelectedIndex();
             if (indexList < 0) {
                 indexList = 0;
             }
             List<EmployeCampagne> EmployesEtCampagne = employeCampagne.getAll();
             for (EmployeCampagne t : EmployesEtCampagne) {
-                if (t.getIdEmploye() == listUtilisateurs.get(indexList).getId()) {
+                if (t.getIdEmploye() == listEmploye.get(indexList).getId()) {
                     employeCampagne.delete(t);
                 }
             }
-            employe.delete(listUtilisateurs.get(indexList));
+            employe.delete(listEmploye.get(indexList));
             JOptionPane.showMessageDialog(panneauGestionUser, "Utilisateur supprimé");
+            updateLists();
         } else if (e.getSource() == btnCreer) {
-            employe.createWoID(new Employe(0, "Mat", "JB", fieldUser.getText(), fieldPswd.getText(), "Utilisateur"));
+            employe.createWoID(new Employe(0, nomUser.getText(), prenomUser.getText(), loginUser.getText(),
+                    mdpUser.getText(), (String) choixTypeCat.getSelectedItem()));
             JOptionPane.showMessageDialog(panneauGestionUser, "Utilisateur créé");
+            updateLists();
         } else if (e.getSource() == btnModifMdp) {
-            int indexList = liste1.getSelectedIndex();
+            int indexList = liste2.getSelectedIndex();
             if (indexList < 0) {
                 indexList = 0;
             }
-            listUtilisateurs.get(indexList).setPassword(fieldChangePswd.getText());
+            listEmploye.get(indexList).setPassword(newMdp.getText());
             ;
-            employe.update(listUtilisateurs.get(indexList));
+            employe.update(listEmploye.get(indexList));
             JOptionPane.showMessageDialog(panneauGestionUser, "Mot de passe modifié");
         }
 
