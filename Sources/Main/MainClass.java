@@ -1,10 +1,9 @@
 package Main;
 
+import Connection.*;
 import DAO.*;
 import Entity.*;
-import Connection.ConnectionBDD;
-import Connection.Connector;
-import Connection.ConnectorMySQL;
+
 import java.sql.*;
 import java.util.List;
 
@@ -41,6 +40,16 @@ public class MainClass {
         boolean ok = daoEmploye.createWoID(employetest);
         System.out.println(ok);
         System.out.println(employetest);
+        // Connection connection = ConnectionBDD.getInstance(new ConnectorMariaDB());
+        // System.out.println("Connexion réussi !");
+        // checkConnection(new ConnectorMariaDB());
+
+        Connector connectorTest = new ConnectorMariaDB();
+        Connection connectTest = ConnectionBDD.getInstance(connectorTest);
+        DAOBatiment daoBatiment = new DAOBatiment(connectTest);
+        Batiment batimentTest = daoBatiment.selectById(1);
+
+        System.out.println(batimentTest);
     }
 
 }

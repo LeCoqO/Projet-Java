@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `campagne`;
 CREATE TABLE IF NOT EXISTS `campagne` (
   `IdCampagne` int(11) NOT NULL AUTO_INCREMENT,
   `MessageCampagne` varchar(255) COLLATE utf8_bin NOT NULL,
-  `TypeCampagne` varchar(50) COLLATE utf8_bin NOT NULL,
+  `TypeCampagne` enum('Information', 'Marketing', 'Urgence') COLLATE utf8_bin NOT NULL,
   `TitreCampagne` varchar(50) COLLATE utf8_bin NOT NULL,
   `DateCampagne` date NOT NULL,
   PRIMARY KEY (`IdCampagne`)
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `locataire` (
   `AgeLocataire` int(3) NOT NULL,
   `TelLocataire` varchar(50) COLLATE utf8_bin NOT NULL,
   `MailLocataire` varchar(50) COLLATE utf8_bin NOT NULL,
-  `CatProfessionnel` varchar(50) COLLATE utf8_bin NOT NULL,
+  `CatProfessionnel` enum('Etudiant', 'Retraité', 'Sans-emploi', 'Travailleur') COLLATE utf8_bin NOT NULL,
   `IdAppart` int(11) NOT NULL,
   PRIMARY KEY (`IdLocataire`),
   KEY `Locataire_Appartement_FK` (`IdAppart`)

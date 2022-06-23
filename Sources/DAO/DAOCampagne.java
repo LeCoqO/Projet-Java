@@ -26,12 +26,11 @@ public class DAOCampagne extends DAO<Campagne> {
      * @return boolean qui vaut true si la création a réussi, false dans le cas
      *         contraire
      */
-    @Override
     public boolean create(Campagne obj) {
         try {
             Statement statement = this.connection.createStatement();
-            return !statement.execute("insert into campagne values('"
-                    + obj.getId() + " , '"
+            return !statement.execute("insert into campagne values("
+                    + "NULL" + " , '"
                     + obj.getMessage() + "' , '"
                     + obj.getType() + "' , '"
                     + obj.getTitre() + "' , '"
@@ -52,7 +51,8 @@ public class DAOCampagne extends DAO<Campagne> {
     public boolean delete(Campagne obj) {
         try {
             Statement statement = this.connection.createStatement();
-            return !statement.execute("delete from campagne where id=" + obj.getId());
+            System.out.println("delete from campagne where IdCampagne=" + obj.getId());
+            return !statement.execute("delete from campagne where IdCampagne=" + obj.getId());
         } catch (SQLException ex) {
             return false;
         }
@@ -90,7 +90,7 @@ public class DAOCampagne extends DAO<Campagne> {
     public Campagne selectById(int id) {
         try {
             Statement statement = this.connection.createStatement();
-            ResultSet res = statement.executeQuery("Select * from campagne where id=" + id);
+            ResultSet res = statement.executeQuery("Select * from campagne where IdCampagne=" + id);
             res.next();
             return new Campagne(res.getInt("IdCampagne"),
                     res.getString("MessageCampagne"),
