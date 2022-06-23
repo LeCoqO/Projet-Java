@@ -45,7 +45,8 @@ public class gestionCampagne extends JFrame implements ActionListener {
     private UtilDateModel model = new UtilDateModel();
     private Properties p = new Properties();
     private JDatePanelImpl datePanelModification = new JDatePanelImpl(model, p);
-    private JDatePickerImpl datePickerModification = new JDatePickerImpl(datePanelModification, new DateLabelFormatter());
+    private JDatePickerImpl datePickerModification = new JDatePickerImpl(datePanelModification,
+            new DateLabelFormatter());
 
     private UtilDateModel model2 = new UtilDateModel();
     private Properties p2 = new Properties();
@@ -163,11 +164,10 @@ public class gestionCampagne extends JFrame implements ActionListener {
         this.getContentPane().add(this.panneauGestionCampagne);
     }
 
-    
-    /** 
+    /**
      * @param evt
      * 
-     * On regarde si on sélectionne une valeur dans la JList
+     *            On regarde si on sélectionne une valeur dans la JList
      */
     private void jList1ValueChanged(ListSelectionEvent evt) {
         if (!listeGraphiqueCampagne.getValueIsAdjusting()) {
@@ -178,15 +178,14 @@ public class gestionCampagne extends JFrame implements ActionListener {
         }
     }
 
-    
-    /** 
+    /**
      * @param e
      * 
-     * Si le bouton retour est appuyé on revient au menu 
+     *          Si le bouton retour est appuyé on revient au menu
      * 
-     * Si le bouton déconnexion est appuyé on arrive sur la page de login 
+     *          Si le bouton déconnexion est appuyé on arrive sur la page de login
      * 
-     * Si le bouton quitter est appuyé cela quitte l'application
+     *          Si le bouton quitter est appuyé cela quitte l'application
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -204,17 +203,24 @@ public class gestionCampagne extends JFrame implements ActionListener {
             maPageLogin.setResizable(false);
         } else if (e.getSource() == btnQuitter) {
             this.dispose();
-        } else if(e.getSource() == btnSuppr){
+        } else if (e.getSource() == btnSuppr) {
             Campagne campagneASupprimer = campagne.selectById(idCampagne);
             campagne.delete(campagneASupprimer);
-            this.dispose();
 
             // Mise à jour de la fenetre
-            menu monMenu = new menu();
-            monMenu.setBounds(650, 350, 300, 150);
-            monMenu.setVisible(true);
-            monMenu.setResizable(false);
-        }else if (e.getSource() == btnCrea) {
+            this.dispose();
+            gestionCampagne mesCampagnes;
+            try {
+                mesCampagnes = new gestionCampagne();
+                mesCampagnes.setBounds(0, 0, 1920, 1080);
+                mesCampagnes.setVisible(true);
+                mesCampagnes.setResizable(false);
+                mesCampagnes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        } else if (e.getSource() == btnCrea) {
             // Création d'une campagne
 
             // Formatage de la date en string
@@ -225,17 +231,25 @@ public class gestionCampagne extends JFrame implements ActionListener {
             // Création d'un objet campagne
             Campagne CampagneCree = new Campagne(0, messageCampagne.getText(),
                     choixTypeCampagne.getSelectedItem().toString(), titreCreation.getText(), stringDate);
-            
+
             // Création en base d'une nouvelle campagne
             campagne.create(CampagneCree);
 
             // Mise à jour de la fenetre
             this.dispose();
-            menu monMenu = new menu();
-            monMenu.setBounds(650, 350, 300, 150);
-            monMenu.setVisible(true);
-            monMenu.setResizable(false);
-        }else if (e.getSource() == btnRePlanif){
+            gestionCampagne mesCampagnes;
+            try {
+                mesCampagnes = new gestionCampagne();
+                mesCampagnes.setBounds(0, 0, 1920, 1080);
+                mesCampagnes.setVisible(true);
+                mesCampagnes.setResizable(false);
+                mesCampagnes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
+        } else if (e.getSource() == btnRePlanif) {
             // Formatage de la date en string
             Date dateCreation = (Date) datePickerModification.getModel().getValue();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -248,10 +262,17 @@ public class gestionCampagne extends JFrame implements ActionListener {
 
             // Mise à jour de la fenetre
             this.dispose();
-            menu monMenu = new menu();
-            monMenu.setBounds(650, 350, 300, 150);
-            monMenu.setVisible(true);
-            monMenu.setResizable(false);
+            gestionCampagne mesCampagnes;
+            try {
+                mesCampagnes = new gestionCampagne();
+                mesCampagnes.setBounds(0, 0, 1920, 1080);
+                mesCampagnes.setVisible(true);
+                mesCampagnes.setResizable(false);
+                mesCampagnes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
 
     }
