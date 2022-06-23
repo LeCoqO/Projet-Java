@@ -93,6 +93,8 @@ public class gestionUser extends JFrame implements ActionListener {
          * ImageIcon icon3 = new ImageIcon(image3);
          * btnQuitter.setIcon(icon3);
          */
+
+        // Definition de la taille des composants
         btnRetour.setBounds(10, 60, 50, 50);
         btnDeco.setBounds(10, 360, 50, 50);
         btnQuitter.setBounds(10, 720, 50, 50);
@@ -163,7 +165,7 @@ public class gestionUser extends JFrame implements ActionListener {
         panneauGestionUser.add(btnCreer);
     }
 
-    public void checkUpdateDroit() {
+    public void checkUpdateDroit() { //Vérif des droits d'un user 
         int indexList = liste1.getSelectedIndex();
         if (indexList < 0) {
             indexList = 0;
@@ -175,7 +177,6 @@ public class gestionUser extends JFrame implements ActionListener {
             EmployeCampagne leDroit = employeCampagne.selectByIds(indexCamp, listUtilisateurs.get(indexList).getId());
             check1.setSelected(leDroit.isDroitCampagne());
             System.out.println(leDroit.getIdCampagne() + " + Emplone" + listUtilisateurs.get(indexList).getId());
-            System.out.println("pas crash");
         } catch (Exception e) { // Exception "normale", on intercepte l'absence de valeur dans la table pour cet
             System.out.println("probleme dans le checkupdatedroit"); // employé a cette campagne. Donc c'est forcément
                                                                      // false
@@ -183,7 +184,7 @@ public class gestionUser extends JFrame implements ActionListener {
         }
     }
 
-    public void updateLists() {
+    public void updateLists() { //MAJ des listes et des elements utilisant ces listes dans la fenetre
         System.out.println("appelé");
         listEmploye = employe.getAll();
         listCampagne = campagne.getAll();
