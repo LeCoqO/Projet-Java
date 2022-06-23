@@ -78,6 +78,8 @@ public class DAOCampagneLocataire extends DAO<Campagne_Locataire> {
         // TODO Auto-generated method stub
         return null;
     }
+
+    
     
 
 }

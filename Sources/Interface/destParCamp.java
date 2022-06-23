@@ -14,13 +14,11 @@ import DAO.DAOCampagneLocataire;
 import DAO.DAOLocataire;
 import Entity.Campagne;
 import Entity.Campagne_Locataire;
-import Entity.Locataire;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.sql.Connection;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,46 +52,24 @@ public class destParCamp extends JFrame {
         setBounds(0, 0, 150, 150);
     }
 
+    
+    /** 
+     * @return CategoryDataset
+     * 
+     * Pour toutes les campagnes on lit le nombre de destinataires
+     * 
+     * Dataset sert à mettre les valeurs dans le graphique
+     */
     private CategoryDataset createDataset() {
 
         List<Campagne> allCampagne = new ArrayList<>(camp.getAll()); // On récupère les campagnes depuis la base
 
         List<Campagne_Locataire> allCampagneLocataire = new ArrayList<>(campLoc.getAll());
 
-        List<Locataire> allLocataire = new ArrayList<>(loc.getAll());
 
         var dataset = new DefaultCategoryDataset();
 
-        // for(int i=0; i<allCampagne.size(); i++) { // Pour chaque campagne on
-        // l'affiche dans le graphique
-        // dataset.setValue(i, "Destinataires", (allCampagne.get(i)).getTitre());
-        // }
-
-        int idCampagne = 0;
-        int idLocataire = 0;
-
-        int idCampagneTampon = 1;
         int nombreLocataire = 0;
-
-        // for(int i=0; i< allCampagneLocataire.size()-1;i++) {
-
-        // idCampagne = allCampagneLocataire.get(i).getIdCampagne();
-        // idLocataire = allCampagneLocataire.get(i).getIdLocataire();
-        // System.out.println("campagne = "+idCampagne);
-        // System.out.println("tampon = "+idCampagneTampon);
-        // if(idCampagne == idCampagneTampon) {
-        // String titreCamp = camp.getTitre(idCampagne);
-        // // int nombreLoca = loc.getNombreLoca(idLocataire);
-        // nombreLocataire++;
-        // dataset.setValue(nombreLocataire, "Destinataires", titreCamp);
-        // idCampagneTampon = allCampagneLocataire.get(i+1).getIdCampagne();
-        // System.out.println("boom");
-        // if(allCampagneLocataire.get(i+1).getIdCampagne()){
-
-        // }
-        // }
-
-        // }
 
         for (Campagne t : allCampagne) {
             nombreLocataire = 0;
@@ -108,6 +84,13 @@ public class destParCamp extends JFrame {
         return dataset;
     }
 
+    
+    /** 
+     * @param dataset
+     * @return JFreeChart
+     * 
+     * On créer le diagramme avec ses informations
+     */
     private JFreeChart createChart(CategoryDataset dataset) {
 
         JFreeChart barChart = ChartFactory.createBarChart(

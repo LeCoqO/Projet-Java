@@ -1,7 +1,6 @@
 package Interface;
 
 import java.sql.Connection;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -9,11 +8,16 @@ import javax.swing.SwingUtilities;
 import Connection.ConnectionBDD;
 import Connection.Connector;
 import Connection.ConnectorMySQL;
-import DAO.DAOEmploye;
-import Entity.Employe;
 
 public class FenetreA {
 
+    
+    /** 
+     * @param (ConnectionBDD.isInstanceOf(connector)
+     * @return boolean
+     * 
+     * On test la connexion à la base de données
+     */
     static boolean checkConnection(Connector connector) { // On test la connexion à la base
 
         if (ConnectionBDD.isInstanceOf(connector)) {
@@ -25,6 +29,14 @@ public class FenetreA {
          }
     }
 
+    
+    /** 
+     * @param args
+     * 
+     * En premier on initialise la connexion
+     * 
+     * On invoque la première fenetre swing pour la page de connexion à l'application
+     */
     public static void main(String[] args) {
 
         Connection connection = ConnectionBDD.getInstance(new ConnectorMySQL()); // On initialise la connexion

@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Connection;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +16,6 @@ import javax.swing.JTextField;
 import Connection.ConnectionBDD;
 import Connection.ConnectorMySQL;
 import DAO.DAOEmploye;
-import Entity.Employe;
 
 public class login extends JFrame implements ActionListener {
 
@@ -53,6 +51,18 @@ public class login extends JFrame implements ActionListener {
         this.getContentPane().add(this.panneau);
     }
 
+    
+    /** 
+     * @param e
+     * 
+     * On recupère le login et le mdp ecrit par l'utilisateur 
+     * 
+     * On test ensuite si le login et le mdp corresponde à ceux dans la base de données
+     * 
+     * Si ils sont corrects on ouvre le bouton menu
+     * 
+     * Si ils ne le sont pas alors on ouvre une pop qui dit que l'id ou le mdp est incorrect
+     */
     public void actionPerformed(ActionEvent e) {
 
         String login = champTexte_user.getText();

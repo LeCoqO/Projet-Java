@@ -26,6 +26,16 @@ public class menu extends JFrame implements ActionListener {
     }
 
 
+    
+    /** 
+     * @param e
+     * 
+     * Si le bouton stats est appuyé alors on ouvre l'interface pour les stats 
+     * 
+     * Si le bouton gestion utlisateurs est appuyé alors on ouvre l'interface de gestion des utilisateurs
+     * 
+     * Si le bouton gestion campagne est appuyé alors on ouvre l'interface de gestion des campagnes
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == boutonStats) { // Si bouton stat cliqué alors on lance la fenetre des stats

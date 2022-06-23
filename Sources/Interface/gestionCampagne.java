@@ -157,12 +157,28 @@ public class gestionCampagne extends JFrame implements ActionListener {
         this.getContentPane().add(this.panneauGestionCampagne);
     }
 
+    
+    /** 
+     * @param evt
+     * 
+     * On regarde si on sélectionne une valeur dans la JList
+     */
     private void jList1ValueChanged(ListSelectionEvent evt) {
         if (!liste1.getValueIsAdjusting()) {
             text1.setText((String) liste1.getSelectedValue());
         }
     }
 
+    
+    /** 
+     * @param e
+     * 
+     * Si le bouton retour est appuyé on revient au menu 
+     * 
+     * Si le bouton déconnexion est appuyé on arrive sur la page de login 
+     * 
+     * Si le bouton quitter est appuyé cela quitte l'application
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnRetour) {

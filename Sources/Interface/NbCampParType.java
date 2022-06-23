@@ -41,6 +41,12 @@ public class NbCampParType extends JFrame {
         setBounds(0,0,150,150);
     }
 
+    
+    /** 
+     * @return DefaultPieDataset
+     * 
+     * On définit les valeurs du diagramme en camembert
+     */
     private DefaultPieDataset createDataset() {
 
         var dataset = new DefaultPieDataset();
@@ -56,6 +62,13 @@ public class NbCampParType extends JFrame {
         return dataset;
     }
 
+    
+    /** 
+     * @param dataset
+     * @return JFreeChart
+     * 
+     * On créer le diagramme
+     */
     private JFreeChart createChart(DefaultPieDataset dataset) {
 
         JFreeChart pieChart = ChartFactory.createPieChart(

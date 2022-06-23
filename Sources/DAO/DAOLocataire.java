@@ -97,7 +97,7 @@ public class DAOLocataire extends DAO<Locataire> {
     public Locataire selectById(int id) {
         try {
             Statement statement = this.connection.createStatement();
-            ResultSet res = statement.executeQuery("Select * from locataire where id=" + id);
+            ResultSet res = statement.executeQuery("Select * from locataire where IdLocataire=" + id);
             res.next();
             return new Locataire(res.getInt("IdLocataire"),
                     res.getString("NomLocataire"),
