@@ -38,10 +38,6 @@ public class stats extends JFrame implements ActionListener {
     private JButton btnDestParCamp = new JButton("Destinataire par campagne");
     private JButton btnNbCampParType = new JButton("Nombre de campagne par type");
     private JPanel panneauMenu = new JPanel();
-    private JRadioButton btnRadCamp = new JRadioButton("Recherche par campagne");
-    private JRadioButton btnRadDest = new JRadioButton("Recherche par destinataire");
-    private JComboBox<String> choixListeCamp = new JComboBox<>();
-    private JComboBox<String> choixListeDest = new JComboBox<>();
     private JList<String> listeCamp = new JList<>();
     DefaultListModel<String> model = new DefaultListModel<>();
     DefaultListModel<String> model2 = new DefaultListModel<>();
@@ -68,15 +64,6 @@ public class stats extends JFrame implements ActionListener {
         ImageIcon icon3 = new ImageIcon(image3);
         btnQuitter.setIcon(icon3);
 
-        String tabCamp[] = { "Liste des campagnes" };
-        String tabDest[] = { "Liste des destinataires" };
-
-        for (String string : tabDest) {
-            choixListeDest.addItem(string);
-        }
-        for (String string2 : tabCamp) {
-            choixListeCamp.addItem(string2);
-        }
 
         btnRetour.setBounds(10, 60, 50, 50);
         btnDeco.setBounds(10, 360, 50, 50);
@@ -90,18 +77,6 @@ public class stats extends JFrame implements ActionListener {
 
         btnNbCampParType.setBounds(850, 120, 350, 50);
         btnNbCampParType.addActionListener(this);
-
-        btnRadCamp.setBounds(400, 20, 175, 20);
-        btnRadDest.setBounds(600, 20, 180, 20);
-        btnRadCamp.setSelected(true);
-        btnRadDest.addActionListener(this);
-        btnRadCamp.addActionListener(this);
-
-        choixListeCamp.setBounds(150, 20, 175, 20);
-        choixListeDest.setBounds(150, 20, 175, 20);
-        choixListeDest.setVisible(false);
-
-
 
         listeCamp = new JList<>(model);
         listeCamp.setBounds(150, 200, 250, 150);
@@ -117,10 +92,6 @@ public class stats extends JFrame implements ActionListener {
 
         listeCamp.addListSelectionListener(listSelectionListener);
 
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(btnRadCamp);
-        bg.add(btnRadDest);
-
         List<Campagne> allCampagne = new ArrayList<>(camp.getAll());
 
         for (int i = 0; i < allCampagne.size(); i++) {
@@ -132,10 +103,6 @@ public class stats extends JFrame implements ActionListener {
         panneauMenu.add(this.btnQuitter);
         panneauMenu.add(this.btnDestParCamp);
         panneauMenu.add(this.btnNbCampParType);
-        panneauMenu.add(this.btnRadCamp);
-        panneauMenu.add(this.btnRadDest);
-        panneauMenu.add(this.choixListeCamp);
-        panneauMenu.add(this.choixListeDest);
         panneauMenu.add(this.listeCamp);
         panneauMenu.add(this.listeDest);
 
@@ -153,13 +120,6 @@ public class stats extends JFrame implements ActionListener {
      * Si btnRadDest est selectionné on affiche la liste des destinataires
      */
     public void actionPerformed(ActionEvent e) { 
-        if (btnRadCamp.isSelected()) {
-            choixListeCamp.setVisible(true);
-            choixListeDest.setVisible(false);
-        } else if (btnRadDest.isSelected()) { 
-            choixListeCamp.setVisible(false);
-            choixListeDest.setVisible(true);
-        }
 
         if (e.getSource() == btnRetour) {
             this.dispose();
