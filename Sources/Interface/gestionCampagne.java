@@ -17,7 +17,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,30 +36,28 @@ public class gestionCampagne extends JFrame implements ActionListener {
     private JLabel label1 = new JLabel("Management/Planification");
     private JLabel label2 = new JLabel("Création");
     private JLabel label3 = new JLabel("Campagne a selectionner");
-    private JTextField text1 = new JTextField("Titre");
-    private JTextField text2 = new JTextField("Titre");
-    private JTextField text3 = new JTextField("Contenu du message");
+    private JTextField titreSelection = new JTextField("Titre");
+    private JTextField titreCreation = new JTextField("Titre");
+    private JTextField messageCampagne = new JTextField("Contenu du message");
     private JLabel label4 = new JLabel("Date déploiement initial :");
     private JList<String> listeGraphiqueCampagne = new JList<>();
-    private JList<String> listeCategorieUtilisateur = new JList<>();
-    private JComboBox<String> choixTypeCamp = new JComboBox<>();
+    private JComboBox<String> choixTypeCampagne = new JComboBox<>();
     private UtilDateModel model = new UtilDateModel();
     private Properties p = new Properties();
-    private JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-    private JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+    private JDatePanelImpl datePanelModification = new JDatePanelImpl(model, p);
+    private JDatePickerImpl datePickerModification = new JDatePickerImpl(datePanelModification, new DateLabelFormatter());
 
     private UtilDateModel model2 = new UtilDateModel();
     private Properties p2 = new Properties();
-    private JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p2);
-    private JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
+    private JDatePanelImpl datePanelCreation = new JDatePanelImpl(model2, p2);
+    private JDatePickerImpl datePickerCreation = new JDatePickerImpl(datePanelCreation, new DateLabelFormatter());
     private JPanel panneauGestionCampagne = new JPanel();
 
-    /*
-     * public void paint(Graphics g){
-     * 
-     * g.drawLine(20, 20, 200, 180);
-     * }
-     */
+    private ArrayList<Campagne> listeCampagne;
+    private int idCampagne;
+    // Connection à la base pour la tabble Campagne
+    Connection connection = ConnectionBDD.getInstance(new ConnectorMariaDB());
+    DAOCampagne campagne = new DAOCampagne(connection);
 
     public gestionCampagne() throws IOException {
         super("Gestion des campagnes");
@@ -82,6 +83,9 @@ public class gestionCampagne extends JFrame implements ActionListener {
         btnRePlanif.setBounds(200, 600, 150, 50);
         btnSuppr.setBounds(500, 600, 150, 50);
         btnCrea.setBounds(900, 450, 150, 50);
+        btnCrea.addActionListener(this);
+        btnSuppr.addActionListener(this);
+        btnRePlanif.addActionListener(this);
         btnRetour.addActionListener(this);
         btnDeco.addActionListener(this);
         btnQuitter.addActionListener(this);
@@ -97,10 +101,8 @@ public class gestionCampagne extends JFrame implements ActionListener {
 
         DefaultListModel<String> model = new DefaultListModel<>();
 
-        Connection connection = ConnectionBDD.getInstance(new ConnectorMariaDB());
-        DAOCampagne campagne = new DAOCampagne(connection);
-
-        ArrayList<Campagne> listeCampagne = new ArrayList<Campagne>(campagne.getAll());
+        // Affichage des campagnes
+        listeCampagne = new ArrayList<Campagne>(campagne.getAll());
 
         for (Campagne camp : listeCampagne) {
             model.addElement(camp.getTitre());
@@ -109,19 +111,16 @@ public class gestionCampagne extends JFrame implements ActionListener {
         DefaultListModel<String> modelU = new DefaultListModel<>();
         modelU.addElement("Catégorie utilisateurs");
 
-        // créer la liste des langages
+        // Créer la liste des langages
         listeGraphiqueCampagne = new JList<>(model);
         listeGraphiqueCampagne.setBounds(200, 120, 250, 150);
 
-        listeCategorieUtilisateur = new JList<>(modelU);
-        listeCategorieUtilisateur.setBounds(1200, 300, 150, 200);
+        titreSelection.setBounds(500, 120, 150, 20);
+        titreCreation.setBounds(900, 120, 250, 20);
+        messageCampagne.setBounds(900, 160, 250, 150);
 
-        text1.setBounds(500, 120, 150, 20);
-        text2.setBounds(900, 120, 250, 20);
-        text3.setBounds(900, 160, 250, 150);
+        choixTypeCampagne.setBounds(1200, 120, 200, 25);
 
-        choixTypeCamp.setBounds(1200, 120, 200, 25);
-        
         String typeCampagne[] = { "Information", "Marketing", "Urgence" };
 
         listeGraphiqueCampagne.addListSelectionListener(new ListSelectionListener() {
@@ -131,28 +130,27 @@ public class gestionCampagne extends JFrame implements ActionListener {
         });
 
         for (String type : typeCampagne) {
-            choixTypeCamp.addItem(type);
+            choixTypeCampagne.addItem(type);
         }
 
         p.put("text.today", "Today");
         p.put("text.month", "Month");
         p.put("text.year", "Year");
 
-        datePicker.setBounds(200, 500, 150, 50);
-        datePicker2.setBounds(900, 350, 250, 50);
+        datePickerModification.setBounds(200, 500, 150, 50);
+        datePickerCreation.setBounds(900, 350, 250, 50);
 
-        panneauGestionCampagne.add(datePicker);
-        panneauGestionCampagne.add(datePicker2);
+        panneauGestionCampagne.add(datePickerModification);
+        panneauGestionCampagne.add(datePickerCreation);
         panneauGestionCampagne.add(this.label1);
         panneauGestionCampagne.add(this.label2);
         panneauGestionCampagne.add(this.label3);
         panneauGestionCampagne.add(this.listeGraphiqueCampagne);
-        panneauGestionCampagne.add(this.listeCategorieUtilisateur);
-        panneauGestionCampagne.add(this.text1);
-        panneauGestionCampagne.add(this.text2);
-        panneauGestionCampagne.add(this.text3);
+        panneauGestionCampagne.add(this.titreSelection);
+        panneauGestionCampagne.add(this.titreCreation);
+        panneauGestionCampagne.add(this.messageCampagne);
         panneauGestionCampagne.add(this.label4);
-        panneauGestionCampagne.add(choixTypeCamp);
+        panneauGestionCampagne.add(choixTypeCampagne);
         panneauGestionCampagne.add(this.btnRetour);
         panneauGestionCampagne.add(this.btnDeco);
         panneauGestionCampagne.add(this.btnQuitter);
@@ -167,7 +165,10 @@ public class gestionCampagne extends JFrame implements ActionListener {
 
     private void jList1ValueChanged(ListSelectionEvent evt) {
         if (!listeGraphiqueCampagne.getValueIsAdjusting()) {
-            text1.setText((String) listeGraphiqueCampagne.getSelectedValue());
+            int index = listeGraphiqueCampagne.getSelectedIndex();
+            String titre = listeCampagne.get(index).getTitre();
+            idCampagne = listeCampagne.get(index).getId();
+            titreSelection.setText((String) titre);
         }
     }
 
@@ -187,6 +188,33 @@ public class gestionCampagne extends JFrame implements ActionListener {
             maPageLogin.setResizable(false);
         } else if (e.getSource() == btnQuitter) {
             this.dispose();
+        } else if(e.getSource() == btnSuppr){
+            Campagne campagneASupprimer = campagne.selectById(idCampagne);
+            campagne.delete(campagneASupprimer);
+        }else if (e.getSource() == btnCrea) {
+            // Création d'une campagne
+
+            // Formatage de la date en string
+            Date dateCreation = (Date) datePickerCreation.getModel().getValue();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String stringDate = dateFormat.format(dateCreation);
+
+            // Création d'un objet campagne
+            Campagne CampagneCree = new Campagne(0, messageCampagne.getText(),
+                    choixTypeCampagne.getSelectedItem().toString(), titreCreation.getText(), stringDate);
+            
+            // Création en base d'une nouvelle campagne
+            campagne.create(CampagneCree);
+        }else if (e.getSource() == btnRePlanif){
+            // Formatage de la date en string
+            Date dateCreation = (Date) datePickerModification.getModel().getValue();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String stringDate = dateFormat.format(dateCreation);
+
+            // Modification de la date de la campagne
+            Campagne campagneAPlannifier = campagne.selectById(idCampagne);
+            campagneAPlannifier.setDate(stringDate);
+            campagne.update(campagneAPlannifier);
         }
 
     }
