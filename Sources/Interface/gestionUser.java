@@ -5,19 +5,15 @@ import Util.*;
 import Connection.*;
 import DAO.*;
 import Entity.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
 import java.sql.Connection;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.xml.transform.Source;
+import javax.imageio.ImageIO;
 
 public class gestionUser extends JFrame implements ActionListener {
 
@@ -168,7 +164,6 @@ public class gestionUser extends JFrame implements ActionListener {
     }
 
     public void checkUpdateDroit() {
-        updateLists();
         int indexList = liste1.getSelectedIndex();
         if (indexList < 0) {
             indexList = 0;
@@ -224,21 +219,23 @@ public class gestionUser extends JFrame implements ActionListener {
         }
     }
 
-    
-    /** 
+    /**
      * @param e
      * 
-     * Si le bouton retour est appuyé on revient au menu 
+     *          Si le bouton retour est appuyé on revient au menu
      * 
-     * Si le bouton déconnexion est appuyé on arrive sur la page de login 
+     *          Si le bouton déconnexion est appuyé on arrive sur la page de login
      * 
-     * Si le bouton quitter est appuyé cela quitte l'application
+     *          Si le bouton quitter est appuyé cela quitte l'application
      * 
-     * Si le bouton valider est appuyé alors on ouvre une pop up qui annonce que l'information a été modifiée
+     *          Si le bouton valider est appuyé alors on ouvre une pop up qui
+     *          annonce que l'information a été modifiée
      * 
-     * Si le bouton creer est appuyé alors on ouvre une pop up qui dit que l'utilisateur a été créé
+     *          Si le bouton creer est appuyé alors on ouvre une pop up qui dit que
+     *          l'utilisateur a été créé
      * 
-     * Si le bouton modif mdp est appuyé alors on ouvre une pop up qui dit que le mdp est modifié
+     *          Si le bouton modif mdp est appuyé alors on ouvre une pop up qui dit
+     *          que le mdp est modifié
      */
     @Override
     public void actionPerformed(ActionEvent e) {

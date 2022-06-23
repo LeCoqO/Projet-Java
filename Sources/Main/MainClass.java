@@ -1,4 +1,4 @@
-package projetjava.Sources.Main;
+package Main;
 
 import DAO.*;
 import Entity.*;
