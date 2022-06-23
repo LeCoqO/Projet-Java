@@ -1,11 +1,15 @@
 package DAO;
 
-import Entity.Partenaire;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOPartenaire extends DAObis<Partenaire> {
+import Entity.Partenaire;
+
+public class DAOPartenaire extends DAO<Partenaire> {
 
     /**
      * Constructeur d'un objet d'accès à la base
@@ -111,7 +115,6 @@ public class DAOPartenaire extends DAObis<Partenaire> {
      * @param name correspond au nom du partenaire
      * @return un objet Partenaire
      */
-    @Override
     public Partenaire selectByName(String name) {
         try {
             Statement statement = this.connection.createStatement();

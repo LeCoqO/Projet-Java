@@ -1,11 +1,15 @@
 package DAO;
 
-import Entity.Locataire;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOLocataire extends DAObis<Locataire> {
+import Entity.Locataire;
+
+public class DAOLocataire extends DAO<Locataire> {
 
     /**
      * Constructeur d'un objet d'accès à la base
@@ -93,7 +97,7 @@ public class DAOLocataire extends DAObis<Locataire> {
     public Locataire selectById(int id) {
         try {
             Statement statement = this.connection.createStatement();
-            ResultSet res = statement.executeQuery("Select * from locataire where id=" + id);
+            ResultSet res = statement.executeQuery("Select * from locataire where IdLocataire=" + id);
             res.next();
             return new Locataire(res.getInt("IdLocataire"),
                     res.getString("NomLocataire"),
@@ -114,7 +118,6 @@ public class DAOLocataire extends DAObis<Locataire> {
      * @param name correspond au nom du locataire
      * @return un objet Locataire
      */
-    @Override
     public Locataire selectByName(String name) {
         try {
             Statement statement = this.connection.createStatement();
@@ -155,6 +158,17 @@ public class DAOLocataire extends DAObis<Locataire> {
             return allLocataire;
         }
         return allLocataire;
+    }
+
+    public int getNombreLoca(int idLocataire) {
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT COUNT(*) AS nbLoca FROM locataire WHERE IdLocataire = "+idLocataire);
+            res.next();
+            return res.getInt("nbLoca");
+        } catch (SQLException ex) {
+            return -1;
+        }
     }
 
 }

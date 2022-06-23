@@ -1,9 +1,13 @@
 package DAO;
 
-import Entity.Employe;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import Entity.Employe;
 
 public class DAOEmploye extends DAO<Employe> {
 
@@ -128,7 +132,7 @@ public class DAOEmploye extends DAO<Employe> {
      * @param name correspond au nom de l'employé
      * @return un objet Employe
      */
-
+    
     public Employe selectByName(String name) {
         try {
             Statement statement = this.connection.createStatement();
@@ -166,4 +170,19 @@ public class DAOEmploye extends DAO<Employe> {
         return allEmploye;
     }
 
+    public Employe getEmployeByLoginPsw(String login, String psw) {
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet res = statement.executeQuery("Select * FROM employe WHERE Login='"+login+"' AND Password='"+psw+"'");    
+            res.next();
+            return new Employe(res.getInt("IdEmploye"),
+                    res.getString("NomEmploye"),
+                    res.getString("PrenomEmploye"),
+                    res.getString("Login"),
+                    res.getString("Password"),
+                    res.getString("Fonction"));
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 }

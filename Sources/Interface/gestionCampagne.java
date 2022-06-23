@@ -47,13 +47,6 @@ public class gestionCampagne extends JFrame implements ActionListener {
     private JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
     private JPanel panneauGestionCampagne = new JPanel();
 
-    /*
-     * public void paint(Graphics g){
-     * 
-     * g.drawLine(20, 20, 200, 180);
-     * }
-     */
-
     public gestionCampagne() throws IOException {
         super("Gestion des campagnes");
 
@@ -104,7 +97,6 @@ public class gestionCampagne extends JFrame implements ActionListener {
         DefaultListModel<String> modelU = new DefaultListModel<>();
         modelU.addElement("Catégorie utilisateurs");
 
-        // créer la liste des langages
         liste1 = new JList<>(model);
         liste1.setBounds(200, 120, 250, 150);
 
@@ -119,17 +111,18 @@ public class gestionCampagne extends JFrame implements ActionListener {
         choixTypeCamp2.setBounds(1200, 120, 200, 25);
         String tabCamp[] = { "Type de campagne" };
 
+        for (String string : tabCamp) { 
+            choixTypeCamp.addItem(string);
+            choixTypeCamp2.addItem(string);
+        }
+
         liste1.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent evt) {
                 jList1ValueChanged(evt);
             }
         });
-
-        for (String string : tabCamp) {
-            choixTypeCamp.addItem(string);
-            choixTypeCamp2.addItem(string);
-        }
-
+   
+        // Ajout des valeurs pour le calendrier
         p.put("text.today", "Today");
         p.put("text.month", "Month");
         p.put("text.year", "Year");
@@ -162,12 +155,28 @@ public class gestionCampagne extends JFrame implements ActionListener {
         this.getContentPane().add(this.panneauGestionCampagne);
     }
 
+    
+    /** 
+     * @param evt
+     * 
+     * On regarde si on sélectionne une valeur dans la JList
+     */
     private void jList1ValueChanged(ListSelectionEvent evt) {
         if (!liste1.getValueIsAdjusting()) {
             text1.setText((String) liste1.getSelectedValue());
         }
     }
 
+    
+    /** 
+     * @param e
+     * 
+     * Si le bouton retour est appuyé on revient au menu 
+     * 
+     * Si le bouton déconnexion est appuyé on arrive sur la page de login 
+     * 
+     * Si le bouton quitter est appuyé cela quitte l'application
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnRetour) {
