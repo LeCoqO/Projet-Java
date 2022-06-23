@@ -207,6 +207,13 @@ public class gestionCampagne extends JFrame implements ActionListener {
         } else if(e.getSource() == btnSuppr){
             Campagne campagneASupprimer = campagne.selectById(idCampagne);
             campagne.delete(campagneASupprimer);
+            this.dispose();
+
+            // Mise à jour de la fenetre
+            menu monMenu = new menu();
+            monMenu.setBounds(650, 350, 300, 150);
+            monMenu.setVisible(true);
+            monMenu.setResizable(false);
         }else if (e.getSource() == btnCrea) {
             // Création d'une campagne
 
@@ -221,6 +228,13 @@ public class gestionCampagne extends JFrame implements ActionListener {
             
             // Création en base d'une nouvelle campagne
             campagne.create(CampagneCree);
+
+            // Mise à jour de la fenetre
+            this.dispose();
+            menu monMenu = new menu();
+            monMenu.setBounds(650, 350, 300, 150);
+            monMenu.setVisible(true);
+            monMenu.setResizable(false);
         }else if (e.getSource() == btnRePlanif){
             // Formatage de la date en string
             Date dateCreation = (Date) datePickerModification.getModel().getValue();
@@ -231,6 +245,13 @@ public class gestionCampagne extends JFrame implements ActionListener {
             Campagne campagneAPlannifier = campagne.selectById(idCampagne);
             campagneAPlannifier.setDate(stringDate);
             campagne.update(campagneAPlannifier);
+
+            // Mise à jour de la fenetre
+            this.dispose();
+            menu monMenu = new menu();
+            monMenu.setBounds(650, 350, 300, 150);
+            monMenu.setVisible(true);
+            monMenu.setResizable(false);
         }
 
     }

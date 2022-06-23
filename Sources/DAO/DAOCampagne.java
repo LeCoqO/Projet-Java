@@ -51,7 +51,6 @@ public class DAOCampagne extends DAO<Campagne> {
     public boolean delete(Campagne obj) {
         try {
             Statement statement = this.connection.createStatement();
-            System.out.println("delete from campagne where IdCampagne=" + obj.getId());
             return !statement.execute("delete from campagne where IdCampagne=" + obj.getId());
         } catch (SQLException ex) {
             return false;
